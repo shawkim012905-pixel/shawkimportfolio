@@ -1,314 +1,531 @@
-/* =============================================
-   CONSULTIQ — QUIZ ENGINE
-   ============================================= */
+/* ══════════════════════════════════════════════════════════
+   ICC CONSULTPATH — QUIZ ENGINE
+   Ivey Consulting Club · HBA1 Edition
+   ══════════════════════════════════════════════════════════ */
 
-// Archetype keys
-const A = { S: 'strategist', D: 'digital', $: 'deal', O: 'ops', N: 'niche' };
-
-// ── QUESTIONS ──────────────────────────────────────────────────────────────
+// ── QUESTIONS ──────────────────────────────────────────────
+// Scoring vectors: [strategist, digital, deal, ops, niche]
 const QUESTIONS = [
   {
-    category: 'Problem Solving',
-    text: 'When faced with a hard problem, your instinct is to…',
+    tag: 'Your Background',
+    text: 'What did you study before Ivey?',
     options: [
-      { icon: '🔭', label: 'Build a hypothesis and stress-test it with data', sub: 'Start with an answer, then prove it',  scores: { strategist:2, digital:1, deal:0, ops:0, niche:0 } },
-      { icon: '🗺️', label: 'Map the end-to-end process to find the bottleneck', sub: 'Follow the flow until something breaks', scores: { strategist:0, digital:1, deal:0, ops:2, niche:1 } },
-      { icon: '💹', label: 'Model the financials and find where value leaks', sub: 'Numbers reveal the real story',          scores: { strategist:1, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '📚', label: 'Go deep into one domain until you know it cold', sub: 'Depth beats breadth, every time',         scores: { strategist:0, digital:0, deal:0, ops:0, niche:2 } },
+      {
+        icon: '⚗️',
+        label: 'STEM — engineering, computer science, or a hard science',
+        sub: 'You built things, coded, or ran experiments',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 2 },
+      },
+      {
+        icon: '📜',
+        label: 'Humanities or social sciences — politics, philosophy, sociology',
+        sub: 'You argued ideas, analysed systems, wrote a lot',
+        scores: { strategist: 2, digital: 0, deal: 0, ops: 0, niche: 1 },
+      },
+      {
+        icon: '💹',
+        label: 'Business or economics',
+        sub: 'You already spoke the language of markets and firms',
+        scores: { strategist: 1, digital: 0, deal: 2, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🎨',
+        label: 'Arts, media, or something else entirely',
+        sub: 'You came at this from a creative or unconventional angle',
+        scores: { strategist: 1, digital: 1, deal: 0, ops: 0, niche: 2 },
+      },
     ],
   },
   {
-    category: 'Proudest Output',
-    text: 'The deliverable that would make you feel most proud is…',
+    tag: 'At Ivey',
+    text: 'Which type of Ivey case gets you most locked in?',
     options: [
-      { icon: '📄', label: 'A tight strategy memo a CEO acts on immediately', sub: 'Crisp, decisive, board-ready',          scores: { strategist:2, digital:0, deal:0, ops:0, niche:1 } },
-      { icon: '📊', label: 'A live dashboard your client checks every morning', sub: 'Always-on, data-driven insight',      scores: { strategist:0, digital:2, deal:0, ops:1, niche:0 } },
-      { icon: '🤝', label: 'A deal that closes and creates shareholder value', sub: 'Value captured, not just advised',     scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '🏗️', label: 'A transformation still running 3 years later', sub: 'Sustainable change, not a one-off',      scores: { strategist:0, digital:0, deal:0, ops:2, niche:1 } },
+      {
+        icon: '♟️',
+        label: 'A CEO deciding whether to enter a new market or acquire a rival',
+        sub: 'Strategy, competitive dynamics, big calls',
+        scores: { strategist: 2, digital: 0, deal: 1, ops: 0, niche: 0 },
+      },
+      {
+        icon: '📊',
+        label: 'A company drowning in data that needs a digital solution',
+        sub: 'Analytics, tech, building something that scales',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '💰',
+        label: 'A private equity firm evaluating a $200M acquisition',
+        sub: 'Valuation, due diligence, deal logic',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '🔄',
+        label: 'A manufacturer whose supply chain is bleeding money',
+        sub: 'Operations, process, getting the shop floor to work',
+        scores: { strategist: 0, digital: 1, deal: 0, ops: 2, niche: 0 },
+      },
+      {
+        icon: '🏥',
+        label: 'A hospital system or pharma company navigating a complex market',
+        sub: 'Deep industry context, regulation, specialized expertise',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 0, niche: 2 },
+      },
     ],
   },
   {
-    category: 'Career Shape',
+    tag: 'Career Shape',
     text: 'Would you rather gain generalist breadth or specialist depth?',
     options: [
-      { icon: '🌍', label: 'Generalist breadth — see every industry and function', sub: 'Variety is the point',            scores: { strategist:2, digital:1, deal:0, ops:1, niche:0 } },
-      { icon: '🔬', label: 'Specialist depth — own one vertical inside-out', sub: 'Be the definitive expert',             scores: { strategist:0, digital:1, deal:1, ops:0, niche:2 } },
+      {
+        icon: '🌐',
+        label: 'Breadth — I want to see every industry and function',
+        sub: 'Keep the options open, learn everything',
+        scores: { strategist: 2, digital: 1, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🔬',
+        label: 'Depth — I want to become the definitive expert in one area',
+        sub: 'Go deep, build a moat, be the person everyone calls',
+        scores: { strategist: 0, digital: 1, deal: 1, ops: 0, niche: 2 },
+      },
     ],
   },
   {
-    category: 'Project Rhythm',
-    text: 'Your ideal project timeline looks like…',
+    tag: 'Working Style',
+    text: 'When you\'re given a vague, half-formed problem, you…',
     options: [
-      { icon: '⚡', label: '6–8 weeks — fast diagnostic, clear recommendation', sub: 'In, out, impact',                   scores: { strategist:2, digital:0, deal:0, ops:0, niche:0 } },
-      { icon: '📅', label: '3–6 months — phased, with implementation milestones', sub: 'Watch the change happen',        scores: { strategist:0, digital:1, deal:0, ops:2, niche:0 } },
-      { icon: '🔔', label: 'Deal-driven — 3 weeks of intensity, then close', sub: 'Sprint, close, repeat',               scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '🌱', label: 'Multi-year program — build something that scales', sub: 'Long arc, deep ownership',           scores: { strategist:0, digital:2, deal:0, ops:1, niche:2 } },
+      {
+        icon: '🧩',
+        label: 'Dive in — structure will emerge once you start pulling threads',
+        sub: 'Ambiguity is where the interesting work happens',
+        scores: { strategist: 2, digital: 0, deal: 1, ops: 0, niche: 0 },
+      },
+      {
+        icon: '📋',
+        label: 'Reach for a proven framework and adapt it',
+        sub: 'Smart people figured this out already — use their playbook',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 1 },
+      },
+      {
+        icon: '💻',
+        label: 'Ask for the data first — the answer lives in the numbers',
+        sub: 'Clean spec, clean output',
+        scores: { strategist: 0, digital: 2, deal: 1, ops: 0, niche: 1 },
+      },
     ],
   },
   {
-    category: 'Handling Ambiguity',
-    text: 'When the problem isn\'t fully defined, you…',
+    tag: 'What Excites You',
+    text: 'Which output would make you proudest?',
     options: [
-      { icon: '🧩', label: 'Love it — structure and clarity emerge through the work', sub: 'Fog is a feature, not a bug', scores: { strategist:2, digital:0, deal:1, ops:0, niche:0 } },
-      { icon: '📋', label: 'Reach for proven playbooks and frameworks', sub: 'Don\'t reinvent the wheel',                 scores: { strategist:0, digital:0, deal:0, ops:2, niche:1 } },
-      { icon: '💻', label: 'Prefer clear specs — then I execute with precision', sub: 'Clarity unlocks quality',          scores: { strategist:0, digital:2, deal:0, ops:0, niche:1 } },
+      {
+        icon: '📄',
+        label: 'A 10-slide deck a CEO acts on the next morning',
+        sub: 'Tight, decisive, no fluff',
+        scores: { strategist: 2, digital: 0, deal: 0, ops: 0, niche: 0 },
+      },
+      {
+        icon: '📈',
+        label: 'A live dashboard your client checks every single day',
+        sub: 'Built it, deployed it, they can\'t live without it',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🤝',
+        label: 'A deal that closes and creates shareholder value',
+        sub: 'Captured, not just advised',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '🏗️',
+        label: 'A transformation your client is still running three years later',
+        sub: 'Outlasting the engagement is the real win',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 1 },
+      },
     ],
   },
   {
-    category: 'Sector Pull',
-    text: 'Which sector makes you lean forward?',
+    tag: 'Client Interaction',
+    text: 'Your dream client interaction looks like…',
     options: [
-      { icon: '♟️', label: 'Any — the puzzle matters more than the industry', sub: 'Cross-sector curiosity',             scores: { strategist:2, digital:0, deal:0, ops:1, niche:0 } },
-      { icon: '🤖', label: 'Tech, AI, and digital products', sub: 'Where the future is being built',                    scores: { strategist:0, digital:2, deal:0, ops:0, niche:1 } },
-      { icon: '💰', label: 'Finance, private equity, M&A', sub: 'Capital allocation is power',                          scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '🏥', label: 'Healthcare, life sciences, or pharma', sub: 'Complexity with real human stakes',            scores: { strategist:0, digital:0, deal:0, ops:1, niche:2 } },
+      {
+        icon: '🎙️',
+        label: 'Weekly steering committee with the CEO and board',
+        sub: 'High stakes, high visibility, no safety net',
+        scores: { strategist: 2, digital: 0, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🖥️',
+        label: 'Embedded with the product team, shipping code daily',
+        sub: 'Hands-on, in the weeds, building things',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '⚖️',
+        label: 'Dealroom with bankers, lawyers, and PE principals',
+        sub: 'Complex structure, high pressure, close the deal',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '👥',
+        label: 'Running change workshops with frontline managers',
+        sub: 'Adoption is what makes the project real',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 1 },
+      },
     ],
   },
   {
-    category: 'Client Interaction',
-    text: 'Your dream client interaction is…',
+    tag: 'Sector Pull',
+    text: 'Which Canadian industry makes you lean forward?',
     options: [
-      { icon: '🎙️', label: 'Weekly steering committee with the CEO', sub: 'Board-level visibility, high stakes',        scores: { strategist:2, digital:0, deal:0, ops:1, niche:0 } },
-      { icon: '🖥️', label: 'Embedded in the product team, shipping daily', sub: 'Hands-on, in the weeds',               scores: { strategist:0, digital:2, deal:0, ops:1, niche:0 } },
-      { icon: '⚖️', label: 'Dealroom with bankers, lawyers, and principals', sub: 'High-voltage, high-stakes',          scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '👥', label: 'Running workshops with front-line managers', sub: 'Adoption wins the project',               scores: { strategist:0, digital:0, deal:0, ops:2, niche:1 } },
+      {
+        icon: '♟️',
+        label: 'Any — the problem matters more than the sector',
+        sub: 'Cross-industry curiosity is the whole point',
+        scores: { strategist: 2, digital: 0, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🏦',
+        label: 'Financial services — big banks, insurance, capital markets',
+        sub: 'Canada\'s biggest industry, and it\'s transforming fast',
+        scores: { strategist: 0, digital: 1, deal: 1, ops: 0, niche: 2 },
+      },
+      {
+        icon: '🛢️',
+        label: 'Energy, mining, or natural resources',
+        sub: 'Alberta, sustainability transitions, commodity cycles',
+        scores: { strategist: 0, digital: 0, deal: 1, ops: 1, niche: 2 },
+      },
+      {
+        icon: '🏥',
+        label: 'Healthcare or life sciences',
+        sub: 'Pharma, devices, hospital systems, policy',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 0, niche: 2 },
+      },
+      {
+        icon: '🤖',
+        label: 'Tech, AI, or digital products',
+        sub: 'Where the next decade is being built',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 0, niche: 1 },
+      },
     ],
   },
   {
-    category: 'Team Preference',
+    tag: 'Team & Pace',
     text: 'You do your best work in…',
     options: [
-      { icon: '🏆', label: 'A small, elite team of 2–4 sharp minds', sub: 'Dense, fast, no fat',                        scores: { strategist:2, digital:0, deal:1, ops:0, niche:1 } },
-      { icon: '🚀', label: 'A mid-size agile squad shipping in sprints', sub: 'Velocity with some structure',            scores: { strategist:1, digital:2, deal:0, ops:1, niche:0 } },
-      { icon: '🌐', label: 'A large cross-functional program office', sub: 'Scale requires coordination',                scores: { strategist:0, digital:0, deal:0, ops:2, niche:0 } },
+      {
+        icon: '🏆',
+        label: 'A tight team of 2–4 very sharp people',
+        sub: 'Small, fast, no filler roles',
+        scores: { strategist: 2, digital: 0, deal: 1, ops: 0, niche: 1 },
+      },
+      {
+        icon: '🚀',
+        label: 'A mid-size agile squad shipping in two-week sprints',
+        sub: 'Velocity with just enough structure',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🌐',
+        label: 'A large cross-functional program office across multiple workstreams',
+        sub: 'Scale and coordination are the challenge',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 0 },
+      },
     ],
   },
   {
-    category: 'Energy Source',
-    text: 'What genuinely gets you fired up at work?',
+    tag: 'Energy Source',
+    text: 'What genuinely fires you up at work?',
     options: [
-      { icon: '🧠', label: 'Cracking a novel intellectual puzzle no one has solved', sub: 'The thrill of first-principles thinking', scores: { strategist:2, digital:1, deal:0, ops:0, niche:1 } },
-      { icon: '🔒', label: 'Watching a complex deal come together and close', sub: 'Structure, negotiate, execute',      scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '📈', label: 'Seeing a team adopt a change you designed', sub: 'Impact that outlasts the project',        scores: { strategist:0, digital:0, deal:0, ops:2, niche:0 } },
-      { icon: '🎯', label: 'Being the absolute authority on your niche', sub: 'The person everyone calls',              scores: { strategist:0, digital:1, deal:0, ops:0, niche:2 } },
+      {
+        icon: '🧠',
+        label: 'Cracking a novel intellectual puzzle nobody has solved cleanly',
+        sub: 'First-principles thinking from a blank page',
+        scores: { strategist: 2, digital: 1, deal: 0, ops: 0, niche: 1 },
+      },
+      {
+        icon: '🔒',
+        label: 'Watching a complex deal come together and close',
+        sub: 'Structure, negotiate, execute, celebrate',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '📈',
+        label: 'Seeing a team genuinely adopt a change you designed',
+        sub: 'Impact that outlasts your invoice',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 0 },
+      },
+      {
+        icon: '🎯',
+        label: 'Becoming the absolute authority in a niche everyone else ignores',
+        sub: 'The person who gets called when nobody else can answer',
+        scores: { strategist: 0, digital: 1, deal: 0, ops: 0, niche: 2 },
+      },
     ],
   },
   {
-    category: 'Travel Appetite',
-    text: 'How do you feel about living out of a carry-on?',
+    tag: 'Toolkit',
+    text: 'Your natural analytical toolkit leads with…',
     options: [
-      { icon: '✈️', label: 'Pack a bag every Monday — I\'m in', sub: 'New city every week is the lifestyle',            scores: { strategist:2, digital:0, deal:0, ops:1, niche:0 } },
-      { icon: '🗓️', label: '25–50% travel is a fair trade-off', sub: 'Occasional client site, mostly flexible',         scores: { strategist:1, digital:1, deal:1, ops:1, niche:0 } },
-      { icon: '🏠', label: 'Mostly local or remote — city matters to me', sub: 'Presence without the jet lag',          scores: { strategist:0, digital:2, deal:0, ops:0, niche:2 } },
+      {
+        icon: '🗂️',
+        label: 'Frameworks, synthesis, and slide logic',
+        sub: 'Minto pyramid, issue trees, 2×2 matrices',
+        scores: { strategist: 2, digital: 0, deal: 0, ops: 1, niche: 0 },
+      },
+      {
+        icon: '🐍',
+        label: 'Python, SQL, dashboards, or machine learning',
+        sub: 'Data does the heavy analytical lifting',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 0, niche: 1 },
+      },
+      {
+        icon: '📉',
+        label: 'Financial models — DCF, comps, LBOs, cap tables',
+        sub: 'Everything flows from the model',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '🔄',
+        label: 'Process maps, RACI charts, and change management plans',
+        sub: 'Adoption requires a roadmap, not just a recommendation',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 0 },
+      },
     ],
   },
   {
-    category: 'Toolkit',
-    text: 'Your natural toolkit leads with…',
+    tag: 'Geography',
+    text: 'Where in Canada would you most want to be based?',
     options: [
-      { icon: '🗂️', label: 'Frameworks, slide structure, synthesis', sub: 'Minto pyramid, issue trees, 2×2s',          scores: { strategist:2, digital:0, deal:0, ops:1, niche:0 } },
-      { icon: '🐍', label: 'Python, SQL, dashboards, ML pipelines', sub: 'Data does the heavy lifting',                 scores: { strategist:0, digital:2, deal:0, ops:0, niche:1 } },
-      { icon: '📉', label: 'Financial models, DCF, cap tables, LBO', sub: 'Everything flows from the model',            scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '🔄', label: 'Process maps, RACI charts, change plans', sub: 'Adoption requires a roadmap',               scores: { strategist:0, digital:0, deal:0, ops:2, niche:0 } },
+      {
+        icon: '🏙️',
+        label: 'Toronto — Canada\'s consulting hub',
+        sub: 'All five archetypes hire heavily here',
+        scores: { strategist: 1, digital: 1, deal: 1, ops: 1, niche: 1 },
+      },
+      {
+        icon: '🎿',
+        label: 'Calgary or Edmonton — energy and natural resources capital',
+        sub: 'McKinsey Calgary, Deloitte, KPMG all recruit here',
+        scores: { strategist: 1, digital: 0, deal: 1, ops: 1, niche: 2 },
+      },
+      {
+        icon: '🍁',
+        label: 'Montreal — bilingual market with a distinct consulting scene',
+        sub: 'McKinsey and BCG have strong Montreal offices; French is an asset',
+        scores: { strategist: 2, digital: 1, deal: 0, ops: 0, niche: 1 },
+      },
+      {
+        icon: '🌊',
+        label: 'Vancouver or open to any city',
+        sub: 'Accenture, Deloitte, EY operate nationally',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 1, niche: 1 },
+      },
     ],
   },
   {
-    category: 'Long-term Vision',
-    text: 'In 10 years, you see yourself as…',
+    tag: 'Ten-Year Vision',
+    text: 'In ten years, where do you picture yourself?',
     options: [
-      { icon: '🏛️', label: 'Partner at a top strategy firm or PE principal', sub: 'Advising CEOs and boards',           scores: { strategist:2, digital:0, deal:1, ops:0, niche:0 } },
-      { icon: '⚙️', label: 'Chief Digital or AI Officer at a Fortune 500', sub: 'Running the transformation from inside', scores: { strategist:0, digital:2, deal:0, ops:0, niche:0 } },
-      { icon: '💼', label: 'CFO, investment banker, or PE partner', sub: 'Capital and deal-making at the center',      scores: { strategist:0, digital:0, deal:2, ops:0, niche:0 } },
-      { icon: '🏭', label: 'VP Operations, COO, or supply-chain executive', sub: 'Making companies run better',        scores: { strategist:0, digital:0, deal:0, ops:2, niche:0 } },
-      { icon: '✍️', label: 'Published thought leader and sector authority', sub: 'Books, keynotes, the go-to voice',    scores: { strategist:1, digital:1, deal:0, ops:0, niche:2 } },
+      {
+        icon: '🏛️',
+        label: 'Partner at a top-tier strategy firm or PE principal',
+        sub: 'Advising CEOs and boards on the biggest calls',
+        scores: { strategist: 2, digital: 0, deal: 1, ops: 0, niche: 0 },
+      },
+      {
+        icon: '⚙️',
+        label: 'Chief Digital or AI Officer at a Canadian bank or enterprise',
+        sub: 'Running the technology transformation from the inside',
+        scores: { strategist: 0, digital: 2, deal: 0, ops: 0, niche: 0 },
+      },
+      {
+        icon: '💼',
+        label: 'CFO, investment banker, or private equity partner',
+        sub: 'Capital allocation and deal-making at the centre',
+        scores: { strategist: 0, digital: 0, deal: 2, ops: 0, niche: 0 },
+      },
+      {
+        icon: '🏭',
+        label: 'VP Operations, COO, or supply-chain executive at a major firm',
+        sub: 'Making companies actually run better at scale',
+        scores: { strategist: 0, digital: 0, deal: 0, ops: 2, niche: 0 },
+      },
+      {
+        icon: '✍️',
+        label: 'Published thought leader and go-to authority in my sector',
+        sub: 'Books, keynotes, the definitive voice in your space',
+        scores: { strategist: 1, digital: 1, deal: 0, ops: 0, niche: 2 },
+      },
     ],
   },
 ];
 
-// ── ARCHETYPE DEFINITIONS ──────────────────────────────────────────────────
+// ── ARCHETYPES ──────────────────────────────────────────────
 const ARCHETYPES = {
   strategist: {
     key: 'strategist',
     emoji: '♟️',
     name: 'The Strategist',
-    tagline: 'You thrive on board-level ambiguity, cross-industry puzzles, and the pressure of delivering a crisp answer fast. MBB is your natural habitat.',
-    color: '#4f7ef8',
-    colorClass: 'color-strategist',
-    bgClass: 'bg-strategist',
-    borderClass: 'border-strategist',
+    heroClass: 'hero-strategist',
     fillClass: 'fill-strategist',
-    glowClass: 'glow-strategist',
-    badgeClass: 'badge-strategist',
+    chartColor: '#034638',
+    tagline: 'You are wired for board-level ambiguity, cross-industry puzzles, and the pressure of delivering a crisp answer fast. MBB in Toronto or Montreal is your natural habitat.',
     strengths: [
-      { icon: '🧠', name: 'Structured Thinking', desc: 'Break any problem into a mutually exclusive, collectively exhaustive issue tree' },
-      { icon: '🎙️', name: 'Executive Presence', desc: 'Synthesize complexity into 30-second elevator answers for C-suite' },
-      { icon: '🌍', name: 'Cross-Industry Agility', desc: 'Onboard to a new sector in 2 weeks and sound credible' },
-      { icon: '⚡', name: 'Speed Under Pressure', desc: 'Deliver 80% answer in 48 hours rather than a perfect answer in 6 weeks' },
+      { icon: '🧠', name: 'Structured Thinking', desc: 'Build an issue tree from any problem in 10 minutes and stress-test it fast' },
+      { icon: '🎙️', name: 'Executive Presence', desc: 'Synthesize chaos into a 30-second elevator recommendation for a CEO' },
+      { icon: '🌍', name: 'Cross-Industry Agility', desc: 'Onboard credibly to any sector in two weeks — because the frameworks travel' },
+      { icon: '⚡', name: 'Speed Under Pressure', desc: 'Deliver an 80% answer in 48 hours rather than a perfect answer in six weeks' },
     ],
     firms: [
-      { name: 'McKinsey & Company', tier: 'target', note: '#1 brand globally; generalist entry, deep specialization post-2yr. ~$190K all-in MBA offer (2024).' },
-      { name: 'Boston Consulting Group', tier: 'target', note: 'Strong on innovation and digital. BCG X is their build arm. Slightly more collaborative culture than McKinsey.' },
-      { name: 'Bain & Company', tier: 'target', note: 'Best-known for PE/Bain Capital alumni network. Highest associate retention among MBB (est.).' },
-      { name: 'Oliver Wyman', tier: 'stretch', note: 'MBB-caliber strategy in financial services and transport. Less AUM than MBB but serious intellectual rigor.' },
-      { name: 'Strategy& (PwC)', tier: 'stretch', note: 'Formerly Booz. Hybrid strategy + execution; good entry point if you want Big 4 resources with strategy DNA.' },
-      { name: 'L.E.K. Consulting', tier: 'safety', note: 'Strong in PE due-diligence and healthcare strategy. Rigorous, leaner, and easier to get than MBB.' },
+      { name: 'McKinsey & Company', tier: 'core', cities: 'Toronto · Calgary · Montreal', note: 'Ivey is a designated target school. Recruits annually for BA analyst roles. Toronto office is the largest Canadian hub.' },
+      { name: 'Boston Consulting Group (BCG)', tier: 'core', cities: 'Toronto · Montreal', note: 'BCG actively hosts ICC-partnered events on campus. Toronto and Montreal offices recruit HBA grads directly into Associate roles.' },
+      { name: 'Bain & Company', tier: 'core', cities: 'Toronto', note: 'Bain's Toronto office has recruited from Ivey since 1989. Smaller class than McKinsey/BCG but strong alumni network into PE.' },
+      { name: 'Oliver Wyman', tier: 'strong', cities: 'Toronto', note: 'MBB-calibre strategy work focused on financial services, aviation, and energy. Toronto office is serious; less crowded than MBB.' },
+      { name: 'Monitor Deloitte', tier: 'strong', cities: 'Toronto', note: 'Deloitte\'s strategy arm. Hosts the "Explore Monitor Deloitte" event specifically for Ivey students. Hybrid strategy + implementation.' },
+      { name: 'Strategy& (PwC)', tier: 'alt', cities: 'Toronto', note: 'Formerly Booz & Company. Good entry point if you want MBB-style strategy work with Big 4 resources and broader exit options.' },
     ],
     playbook: [
-      { title: 'Case prep is non-negotiable', detail: 'Target 150+ cases. Use CaseCoach or RocketBlocks. Practice live partner cases, not just solo prep. Interviewers detect solo-practice patterns.' },
-      { title: 'Build a 2-min personal story', detail: '"Walk me through your resume" separates offers. Frame every experience as: situation → your action → quantified result. Rehearse until it sounds natural.' },
-      { title: 'Apply to diversity programs early', detail: 'McKinsey Insight, BCG STARS, and Bain\'s ACCESS programs recruit for full-time 18 months before campus recruiting opens. Apply in sophomore/junior fall.' },
-      { title: 'Network with precision', detail: 'One genuine coffee chat with a consultant beats 10 cold emails. Ask about their worst engagement — it builds real rapport and differentiates you.' },
+      { title: 'Case prep starts in September of HBA1', detail: 'Most MBB first-round interviews at Ivey fall between January and March. Starting in September gives you four months for 100+ cases. Use ICC\'s free RocketBlocks access and the 35 casebooks on the resources portal.' },
+      { title: 'Nail the "walk me through your resume" before anything else', detail: 'Interviewers form a view of you in 90 seconds. Frame every pre-Ivey and summer experience as: context → your action → quantified outcome. Practice until it sounds natural, not rehearsed.' },
+      { title: 'Attend every ICC firm event, especially McKinsey Insight and BCG STARS', detail: 'These diversity and early-access programs recruit for full-time 12–18 months before standard HBA recruiting opens. Check ICC\'s event calendar in September — many deadlines are in October.' },
+      { title: 'One real coffee chat beats ten cold emails', detail: 'Ask an ICC mentor who went to MBB for a 20-minute intro call. Then ask them for one warm introduction. That chain gets you to a real conversation with a recruiter faster than applying cold.' },
     ],
-    synthesis: 'You are wired for the ambiguity and speed of top-tier strategy. Your edge is synthesis speed — translating chaotic data into a crisp CEO recommendation. Invest your recruiting energy in MBB first, then Oliver Wyman and L.E.K. as intelligent alternatives. The credential gap between MBB and second-tier closes quickly once you have 2 years of deal or PE work; get in the door at the highest tier you can.',
+    synthesis: 'You are built for the speed and intellectual intensity of top-tier strategy. Ivey is one of fewer than a dozen Canadian schools where McKinsey, BCG, and Bain recruit actively — you are already at the right starting line. Invest your energy in ICC resources and firm events first, case prep second, and cold applications last. The credential gap between MBB and second-tier closes fast once you have two years of deal or PE work; get in the door at the highest tier you can.',
   },
 
   digital: {
     key: 'digital',
     emoji: '⚙️',
     name: 'The Digital Transformer',
-    tagline: 'You bridge strategy and technology — translating business problems into data products, AI systems, and digital platforms that actually get adopted.',
-    color: '#22d3a0',
-    colorClass: 'color-digital',
-    bgClass: 'bg-digital',
-    borderClass: 'border-digital',
+    heroClass: 'hero-digital',
     fillClass: 'fill-digital',
-    glowClass: 'glow-digital',
-    badgeClass: 'badge-digital',
+    chartColor: '#0097A0',
+    tagline: 'You sit at the intersection of strategy and technology — translating business problems into data products, AI systems, and digital platforms that actually get adopted by real organizations.',
     strengths: [
-      { icon: '📊', name: 'Data Storytelling', desc: 'Turn a 10M-row dataset into one slide that changes the room' },
-      { icon: '🤖', name: 'AI/ML Fluency', desc: 'Speak the language of data scientists and explain it to the board' },
-      { icon: '🏗️', name: 'Product Thinking', desc: 'Design solutions for adoption, not just technical correctness' },
+      { icon: '📊', name: 'Data Storytelling', desc: 'Turn a 10M-row dataset into one slide that changes the room\'s direction' },
+      { icon: '🤖', name: 'Tech & AI Fluency', desc: 'Speak the language of engineers and translate it for the CFO' },
+      { icon: '🏗️', name: 'Product Thinking', desc: 'Design for adoption, not just technical correctness' },
       { icon: '🔄', name: 'Agile Delivery', desc: 'Ship incremental value in sprints rather than big-bang launches' },
     ],
     firms: [
-      { name: 'BCG X (fmr. BCG Gamma)', tier: 'target', note: 'BCG\'s build-and-operate arm for AI products. Recruits engineers and data scientists at same prestige as MBB strategy.' },
-      { name: 'McKinsey QuantumBlack', tier: 'target', note: 'Analytics-first arm. Works on advanced analytics for Fortune 500. Strong AI/ML and data engineering track.' },
-      { name: 'Deloitte AI & Data', tier: 'target', note: 'Largest digital consulting practice globally by headcount (~430K). Strong on cloud, SAP, and AI implementation.' },
-      { name: 'Accenture Strategy & Consulting', tier: 'stretch', note: '$64B revenue (FY2023). Dominant in large-scale digital transformation. Less prestigious than MBB but unmatched in tech delivery.' },
-      { name: 'Capgemini Invent', tier: 'stretch', note: 'European powerhouse in digital transformation. Strong in automotive, energy, and public sector tech.' },
-      { name: 'West Monroe Partners', tier: 'safety', note: 'Mid-market digital and operations firm. High people-culture scores. Strong PE-backed tech transformation practice.' },
+      { name: 'Deloitte Digital / Monitor Deloitte', tier: 'core', cities: 'Toronto · Montreal · Vancouver', note: 'Canada\'s largest consulting practice. Deloitte Digital handles AI, cloud, and platform transformation. Strong track from Ivey into their tech and strategy arms.' },
+      { name: 'Accenture Strategy & Consulting', tier: 'core', cities: 'Toronto · Montreal · Vancouver · Calgary', note: 'National presence with deep digital transformation practice. $64B global revenue (FY2023). Good early ownership on large-scale Canadian clients (banks, telcos, government).' },
+      { name: 'McKinsey QuantumBlack', tier: 'core', cities: 'Toronto (via McKinsey)', note: 'McKinsey\'s advanced analytics and AI arm. Recruits strong quant backgrounds at the same prestige level as the core strategy track. Stand out by pairing a technical background with Ivey business credentials.' },
+      { name: 'BCG X (formerly BCG Gamma)', tier: 'strong', cities: 'Toronto (via BCG)', note: 'BCG\'s build-and-operate arm for AI products. Separate recruiting track from BCG strategy. Engineers and data scientists hired alongside business analysts.' },
+      { name: 'Capgemini Invent', tier: 'strong', cities: 'Toronto · Montreal', note: 'Strong in digital and data transformation for Canadian financial services and public sector. Growing rapidly in Canada.' },
+      { name: 'EY Technology Consulting', tier: 'alt', cities: 'Toronto · Across Canada', note: 'EY\'s technology advisory practice handles large-scale cloud, ERP, and AI implementation. High volume of work; faster responsibility than larger strategy arms.' },
     ],
     playbook: [
-      { title: 'Build a public portfolio', detail: 'Two polished GitHub repos or a Kaggle top-10% finish signal more than a GPA to digital consulting recruiters. Solve a real business problem, not a toy dataset.' },
-      { title: 'Get one cloud cert', detail: 'AWS Solutions Architect Associate or GCP Professional Data Engineer takes ~80 hours of prep and signals execution capability. Firms like Deloitte and Accenture track certifications.' },
-      { title: 'Target digital practice groups', detail: 'Apply directly to BCG X, McKinsey QuantumBlack, or Deloitte\'s AI practice — separate from the general consulting pool. Requirements differ and competition is less intense.' },
-      { title: 'Frame experience in business impact', detail: 'Recruiters don\'t hire for Python skills — they hire for what Python made possible. Always anchor technical projects to a revenue or cost outcome.' },
+      { title: 'Build two polished GitHub projects before applying', detail: 'A Kaggle top-10% finish or two clean repos solving a real business problem signals far more than a GPA to digital consulting recruiters. Frame each project around a business outcome, not just the code.' },
+      { title: 'Get one cloud certification', detail: 'AWS Solutions Architect Associate (~80 hours of prep) or GCP Professional Data Engineer is a direct credibility signal. Deloitte and Accenture actively track certifications for junior hires in their digital arms.' },
+      { title: 'Apply directly to digital practice groups, not just general consulting pools', detail: 'BCG X, McKinsey QuantumBlack, and Deloitte Digital have separate application processes from the generalist track. Requirements differ, and competition is less intense because fewer candidates know these tracks exist.' },
+      { title: 'Always anchor technical work to a business number', detail: 'Recruiters hire for what your Python skills made possible — not for the Python itself. Every technical project on your resume should end with a revenue, cost, or efficiency outcome.' },
     ],
-    synthesis: 'Digital transformation consulting is the fastest-growing segment in the industry, with the global market projected to reach $3.9T by 2027 (IDC estimate). Your edge is rare: you can both build and advise. Prioritize BCG X and McKinsey QuantumBlack if you want MBB prestige in a technical track, and Deloitte Digital if you want scale and early ownership. A strong GitHub and one cloud certification will do more for your application than another case prep session.',
+    synthesis: 'Digital transformation is the fastest-growing segment in Canadian consulting — every major Canadian bank, telco, and retailer is mid-transformation. Your edge is rare: you can build and advise. Prioritize Monitor Deloitte and Accenture for scale and early responsibility, and McKinsey QuantumBlack or BCG X if you want MBB prestige in a technical track. A strong portfolio and one cloud certification will do more for your candidacy than another case prep session.',
   },
 
   deal: {
     key: 'deal',
     emoji: '💼',
     name: 'The Deal Advisor',
-    tagline: 'You operate in the high-stakes intersection of finance and strategy — M&A due diligence, restructuring, and transaction advisory, where the pressure is real and the numbers are the argument.',
-    color: '#f5c842',
-    colorClass: 'color-deal',
-    bgClass: 'bg-deal',
-    borderClass: 'border-deal',
+    heroClass: 'hero-deal',
     fillClass: 'fill-deal',
-    glowClass: 'glow-deal',
-    badgeClass: 'badge-deal',
+    chartColor: '#9a7100',
+    tagline: 'You operate in the high-stakes intersection of finance and strategy — M&A due diligence, restructuring, and transaction advisory, where the financial model is the argument and the deadline is always tomorrow.',
     strengths: [
-      { icon: '💹', name: 'Financial Modeling', desc: 'Build 3-statement models, LBOs, and DCFs under time pressure' },
-      { icon: '⚖️', name: 'Deal Structuring', desc: 'Understand valuation, earn-outs, reps & warranties, and capital structure' },
-      { icon: '🔥', name: 'High-Pressure Performance', desc: 'Stay sharp when the timeline compresses to 48 hours before close' },
-      { icon: '🔍', name: 'Commercial Due Diligence', desc: 'Separate market signal from noise in a 3-week sprint' },
+      { icon: '💹', name: 'Financial Modelling', desc: 'Build a three-statement model, LBO, or DCF under time pressure and defend every assumption' },
+      { icon: '⚖️', name: 'Deal Structuring', desc: 'Understand valuation, earn-outs, reps & warranties, and capital structure trade-offs' },
+      { icon: '🔥', name: 'High-Pressure Performance', desc: 'Stay sharp when the timeline compresses to 36 hours before close' },
+      { icon: '🔍', name: 'Commercial Due Diligence', desc: 'Separate market signal from noise in a three-week sprint' },
     ],
     firms: [
-      { name: 'AlixPartners', tier: 'target', note: 'Premier restructuring and turnaround firm. Works on distressed situations (Toys R Us, Sears). Comp rivals MBB for seniors.' },
-      { name: 'FTI Consulting', tier: 'target', note: '$3.5B revenue (2023). Largest forensic/litigation and corporate finance advisory practice. Strong restructuring and M&A.' },
-      { name: 'Houlihan Lokey', tier: 'target', note: 'Top-ranked M&A advisor for deals <$1B. Strong restructuring group. Excellent training for junior deal professionals.' },
-      { name: 'PwC Deals / Deloitte Corporate Finance', tier: 'stretch', note: 'Big 4 transaction services — financial due diligence and valuation on 1,000+ deals/year. Volume builds modeling speed fast.' },
-      { name: 'EY-Parthenon', tier: 'stretch', note: 'Hybrid strategy + deals. Strong in commercial due diligence for PE. Combines strategy rigor with transaction pace.' },
-      { name: 'Kroll / Duff & Phelps', tier: 'safety', note: 'Valuation and financial advisory firm. Strong in fairness opinions and restructuring. Good entry into transaction work.' },
+      { name: 'EY-Parthenon', tier: 'core', cities: 'Toronto', note: 'Strategy + transactions. Strong in commercial due diligence for PE-backed deals and corporate M&A. Combines strategy rigor with deal pace. Actively recruits Ivey HBAs.' },
+      { name: 'PwC Deals Advisory', tier: 'core', cities: 'Toronto · Across Canada', note: 'One of Canada\'s largest transaction services practices. Financial due diligence and valuation on hundreds of deals per year. High volume builds modelling speed fast.' },
+      { name: 'Alvarez & Marsal (A&M)', tier: 'core', cities: 'Toronto', note: 'Premier performance improvement and restructuring firm. Worked on notable Canadian restructurings. Analyst responsibility rivals that of investment banking.' },
+      { name: 'FTI Consulting', tier: 'strong', cities: 'Toronto', note: 'Economic, financial, and forensic advisory. Strong in restructuring and M&A advisory. $3.5B global revenue (2023). Toronto office recruits from Canadian universities.' },
+      { name: 'KPMG Deal Advisory', tier: 'strong', cities: 'Toronto · Across Canada', note: 'KPMG has 40 Canadian offices and 7,000 employees. Deal Advisory covers M&A, valuations, and restructuring. Good for breadth of deal exposure early.' },
+      { name: 'Deloitte Corporate Finance', tier: 'alt', cities: 'Toronto · Across Canada', note: 'Deloitte\'s M&A and transaction advisory arm. Complements Monitor Deloitte on the strategic side. Broad access to Canadian corporate and PE clients.' },
     ],
     playbook: [
-      { title: 'Pass CFA Level 1 before recruiting', detail: 'CFA Level 1 signals financial commitment and boosts credibility in deal-side roles. ~300 hours of prep; schedule the exam 6 months out.' },
-      { title: 'Build a model from scratch', detail: 'Run through a free LBO model from Macabacus or CFI. Being able to discuss your own model in an interview — its assumptions, sensitivities, breaks — is more impressive than citing a template.' },
-      { title: 'Target restructuring for faster responsibility', detail: 'Restructuring groups at AlixPartners or FTI put analysts on creditor committee calls in year one. More responsibility, faster, than traditional M&A.' },
-      { title: 'Network through deal databases', detail: 'Use Pitchbook or Mergermarket (free through most university libraries) to research recent transactions, then reference them specifically in networking emails to stand out.' },
+      { title: 'Pass CFA Level 1 before summer recruiting', detail: 'CFA Level 1 signals financial commitment and boosts credibility in deal-side roles. ~300 hours of prep; register six months out. Deloitte and PwC Deals recruiters specifically look for it on HBA resumes.' },
+      { title: 'Build a model from scratch — then explain it in an interview', detail: 'Work through a free LBO or DCF model from Macabacus or CFI. Being able to walk through your own model — its assumptions, sensitivities, where it breaks — is more impressive than describing a template you used.' },
+      { title: 'Target restructuring groups for faster junior responsibility', detail: 'A&M and FTI put junior hires on creditor committee calls in year one. More responsibility, faster, than traditional M&A advisory. The exit paths into PE are strong from both firms.' },
+      { title: 'Use Pitchbook through the Ivey library to research Canadian deals', detail: 'Research two or three recent Canadian transactions in your target sector. Referencing a specific deal ("I noticed you advised on the X acquisition of Y last fall…") in a networking email doubles response rates.' },
     ],
-    synthesis: 'Deal advisory is intensely competitive but rewards financial fluency faster than generalist consulting. Global M&A volume hit $3.2T in 2023 (Bloomberg), and restructuring activity rises in every rate cycle. Your recruiting edge is demonstrating that you can build a model, not just read one. AlixPartners and FTI are your highest-leverage targets; Big 4 transaction services is a high-volume training ground that feeds both PE and banking exits.',
+    synthesis: 'Deal advisory in Canada is intensely competitive but rewards financial fluency faster than generalist consulting. Canadian M&A volume remains robust in financial services, energy, and tech. Your recruiting edge is demonstrating you can build a model and defend it — not just read one. EY-Parthenon and A&M offer the best combination of deal intensity and learning. Big 4 transaction services is a high-volume training ground that feeds both PE and banking exits within two years.',
   },
 
   ops: {
     key: 'ops',
     emoji: '🏗️',
     name: 'The Operational Architect',
-    tagline: 'You design and implement the systems that make companies actually work — supply chains, org redesigns, large-scale change programs, and ERP transformations.',
-    color: '#ff8a65',
-    colorClass: 'color-ops',
-    bgClass: 'bg-ops',
-    borderClass: 'border-ops',
+    heroClass: 'hero-ops',
     fillClass: 'fill-ops',
-    glowClass: 'glow-ops',
-    badgeClass: 'badge-ops',
+    chartColor: '#4F2D7F',
+    tagline: 'You design and implement the systems that make Canadian companies actually work — supply chains, operating model redesigns, large-scale change programs, and ERP transformations that stick.',
     strengths: [
       { icon: '🗺️', name: 'Process Architecture', desc: 'Map, diagnose, and redesign end-to-end workflows at enterprise scale' },
-      { icon: '👥', name: 'Change Leadership', desc: 'Drive adoption by designing for the human as much as the system' },
-      { icon: '📐', name: 'Program Management', desc: 'Coordinate 10+ workstreams without losing track of the critical path' },
-      { icon: '🔧', name: 'Lean / Six Sigma', desc: 'Eliminate waste with DMAIC and value-stream mapping' },
+      { icon: '👥', name: 'Change Leadership', desc: 'Design for the human as much as the system — adoption is the real deliverable' },
+      { icon: '📐', name: 'Program Management', desc: 'Coordinate 10+ workstreams without losing the critical path' },
+      { icon: '🔧', name: 'Lean / Operational Excellence', desc: 'Eliminate waste with DMAIC, value-stream mapping, and structured kaizen' },
     ],
     firms: [
-      { name: 'Deloitte Consulting (S&O)', tier: 'target', note: '$26B consulting revenue (2023). Strategy & Operations practice handles some of the largest transformation programs globally.' },
-      { name: 'PwC Advisory', tier: 'target', note: 'Strong in finance transformation, operating model design, and shared services. Deep roster of Fortune 500 clients.' },
-      { name: 'Kearney', tier: 'target', note: 'Founded on supply chain and operations. Remains the gold standard for supply-chain strategy. Smaller and more specialized than Big 4.' },
-      { name: 'KPMG Advisory', tier: 'stretch', note: 'Strong in regulatory and risk transformation. Less glamorous than Deloitte/PwC but solid for operations and finance projects.' },
-      { name: 'Huron Consulting', tier: 'stretch', note: 'Specialist in healthcare and higher-ed operations. High responsibility early; recruits heavily from non-target schools.' },
-      { name: 'West Monroe Partners', tier: 'safety', note: 'Mid-market operations and technology firm. Best workplace ratings and strong client impact in PE-backed portfolio companies.' },
+      { name: 'Monitor Deloitte / Deloitte Consulting', tier: 'core', cities: 'Toronto · Across Canada', note: 'Canada\'s largest consulting practice. Strategy & Operations handles some of the biggest transformation programs nationally. Ivey is a target school for multiple practices.' },
+      { name: 'Kearney', tier: 'core', cities: 'Toronto', note: 'Founded on supply chain and operations. Gold standard for supply-chain strategy globally. Smaller and more specialized than Big 4; faster access to client leadership.' },
+      { name: 'PwC Advisory', tier: 'core', cities: 'Toronto · Across Canada', note: 'Finance transformation, operating model design, and shared services. Deep roster of Canadian bank and government clients. Strong HBA hiring track.' },
+      { name: 'Accenture Operations', tier: 'strong', cities: 'Toronto · Montreal · Vancouver', note: 'Large-scale operational outsourcing and transformation. Strong in Canadian financial services and telecommunications. Early ownership on national programs.' },
+      { name: 'KPMG Advisory', tier: 'strong', cities: 'Toronto · Across Canada', note: 'Regulatory and risk transformation plus operations. 40 Canadian offices. Recruits broadly and offers fast responsibility in public sector and financial services operations.' },
+      { name: 'IBM Consulting', tier: 'alt', cities: 'Toronto · Montreal · Calgary', note: 'Significant Canadian footprint. Strong in SAP, cloud, and operational transformation for Canadian enterprises and government. Less prestigious but deep technical delivery.' },
     ],
     playbook: [
-      { title: 'Get Lean Six Sigma Green Belt', detail: 'A 2-day online course plus a practice project yields a Green Belt cert. It\'s a direct signal to operations practices and costs ~$300.' },
-      { title: 'Target implementation arms early', detail: 'Most Big 4 have separate applications for their strategy vs. implementation arms. Apply to both. Implementation hires more, pays similarly, and gives real delivery ownership faster.' },
-      { title: 'Find a vertical and own it', detail: 'Operations consulting rewards depth. Choose one: supply chain, finance transformation, HR redesign, or healthcare ops. Then frame every experience through that lens.' },
-      { title: 'Demonstrate project management credibility', detail: 'A PMP or CAPM cert (~60 study hours) is low-cost evidence of PM fluency. Alternatively, lead a campus project with a real budget and timeline — then quantify what you delivered.' },
+      { title: 'Get Lean Six Sigma Green Belt certified before recruiting', detail: 'A two-day online course plus one practice project yields a Green Belt certification for ~$300. It\'s a direct signal to operations practices and frequently shows up on Deloitte and Kearney JDs for junior hires.' },
+      { title: 'Apply to implementation arms and strategy arms separately', detail: 'Most Big 4 firms have distinct applications for their strategy vs. implementation practices. Apply to both. The implementation arm hires more, pays comparably, and gives real delivery ownership faster.' },
+      { title: 'Pick one operational vertical and own it', detail: 'Operations consulting rewards depth. Choose one: supply chain, finance transformation, HR operating model, or healthcare operations. Frame every Ivey case and summer experience through that lens in your cover letter.' },
+      { title: 'Quantify every operational outcome you\'ve ever touched', detail: 'Operations interviewers love numbers: throughput improvement %, cost per unit reduction, cycle time cut. If you ran a campus club or team, express it as: managed X people, delivered Y event, reduced cost by Z%.' },
     ],
-    synthesis: 'Operations consulting is the backbone of the industry — 60% of consulting revenue globally comes from implementation, not strategy slides (Source Capital estimate). Your competitive edge is rare: the ability to design a system AND get humans to adopt it. Deloitte S&O and Kearney are your top targets; Huron and West Monroe offer faster responsibility with high culture scores. An operations specialist who can quantify throughput, cost, or cycle-time improvements wins every interview.',
+    synthesis: 'Operations consulting is the backbone of the industry — the majority of Canadian consulting revenue comes from implementation, not strategy slides. Your competitive edge is rare: the ability to design a system and get humans to adopt it. Deloitte and Kearney are your top targets; KPMG and Accenture offer faster responsibility and strong national networks. An operations candidate who can quantify throughput, cost, or cycle-time improvements wins interviews at every tier.',
   },
 
   niche: {
     key: 'niche',
     emoji: '🔬',
     name: 'The Niche Expert',
-    tagline: 'You are drawn to deep domain mastery — becoming the definitive authority in one sector where your technical credibility unlocks access that generalists never get.',
-    color: '#c084fc',
-    colorClass: 'color-niche',
-    bgClass: 'bg-niche',
-    borderClass: 'border-niche',
+    heroClass: 'hero-niche',
     fillClass: 'fill-niche',
-    glowClass: 'glow-niche',
-    badgeClass: 'badge-niche',
+    chartColor: '#c05c2a',
+    tagline: 'You are drawn to deep domain mastery — becoming the definitive authority in one Canadian sector where your technical credibility unlocks access that generalists never earn.',
     strengths: [
-      { icon: '🏅', name: 'Domain Credibility', desc: 'Clients trust you because you\'ve solved this exact problem in this exact sector before' },
-      { icon: '💡', name: 'Thought Leadership', desc: 'Publish the framework others cite; the best firms find you, not the reverse' },
-      { icon: '🔎', name: 'Specialized Problem-Solving', desc: 'See patterns invisible to generalists — because you have 1,000 hours of pattern recognition' },
-      { icon: '🤝', name: 'Client Intimacy', desc: 'Long-term sector relationships that generate repeat work and referrals' },
+      { icon: '🏅', name: 'Domain Credibility', desc: 'Clients hire you because you\'ve solved this exact problem in this exact sector before' },
+      { icon: '💡', name: 'Thought Leadership', desc: 'Publish the framework others cite — the best firms find you, not the reverse' },
+      { icon: '🔎', name: 'Specialized Problem-Solving', desc: 'See patterns invisible to generalists from 1,000 hours of sector pattern recognition' },
+      { icon: '🤝', name: 'Client Intimacy', desc: 'Long-term sector relationships that generate repeat work and referrals across Canada' },
     ],
     firms: [
-      { name: 'L.E.K. Consulting', tier: 'target', note: 'Best-in-class for healthcare, life sciences, and media strategy. Rigorous, boutique, and less known — which is why offer rates are higher than MBB.' },
-      { name: 'Charles River Associates (CRA)', tier: 'target', note: 'Economic, financial, and strategic consulting for litigation and regulation. Recruits PhDs and specialists heavily.' },
-      { name: 'Dalberg Advisors', tier: 'target', note: 'Top-tier boutique for social impact, global health, and development finance. The MBB of the impact space.' },
-      { name: 'Health Advances', tier: 'stretch', note: 'Pure-play life sciences strategy boutique. Works on product launches, BD, and portfolio strategy for biopharma. Requires domain knowledge.' },
-      { name: 'Roland Berger', tier: 'stretch', note: 'European strategy firm. Strong in automotive, industrial, and energy verticals. Good entry if you have a European language or sector background.' },
-      { name: 'Guidehouse', tier: 'safety', note: 'Public sector, energy, and healthcare advisory. Recruits broadly. Strong pipeline to federal and state government consulting projects.' },
+      { name: 'L.E.K. Consulting', tier: 'core', cities: 'Toronto', note: 'Best-in-class for life sciences, healthcare strategy, and media. Rigorous, boutique, and less known than MBB — which is exactly why offer rates are higher and the work is more specialized from day one.' },
+      { name: 'ZS Associates', tier: 'core', cities: 'Toronto', note: 'Pure-play life sciences and pharma consulting. Works on commercial strategy, pricing, and digital health for major Canadian and global pharma clients. Recruits STEM and business grads.' },
+      { name: 'Oliver Wyman (Financial Services)', tier: 'core', cities: 'Toronto', note: 'If your niche is Canadian banking, insurance, or capital markets, Oliver Wyman\'s Toronto office does MBB-calibre work in a concentrated sector practice.' },
+      { name: 'IQVIA', tier: 'strong', cities: 'Toronto · Across Canada', note: 'Life sciences data and consulting giant. Strong Canadian pharma practice. Entry point into healthcare consulting with deep proprietary data and modelling.' },
+      { name: 'Guidehouse', tier: 'strong', cities: 'Toronto · Ottawa', note: 'Public sector, energy, and healthcare advisory. Ottawa office serves federal government clients. Strong for students interested in policy-adjacent consulting.' },
+      { name: 'Dalberg Advisors', tier: 'alt', cities: 'Toronto (regional)', note: 'Top-tier boutique for social impact, global health, and development finance. The MBB of the impact space. Selects for domain passion and pre-Ivey experience in the sector.' },
     ],
     playbook: [
-      { title: 'Build public credibility in your niche', detail: '3–5 LinkedIn articles per year in your target sector compound dramatically. Cite primary sources (PubMed, Bloomberg, USAID data). Recruiters at niche firms search LinkedIn by sector keyword.' },
-      { title: 'Get technical experience before you consult', detail: 'Clinical rotations, policy internships, lab work, or startup roles in your sector are worth more than another internship at a generalist firm. Sector boutiques hire for credentials, not just GPA.' },
-      { title: 'Research the firm\'s published work', detail: 'L.E.K., CRA, and Dalberg publish sector-specific thought leadership. Reference a specific report in your cover letter — it shows you read the work, not just the website.' },
-      { title: 'Target firm recruiting directly', detail: 'Most boutiques don\'t recruit through OCR (on-campus recruiting). Email a principal or partner directly with a specific question about their sector practice. Response rates are higher than you\'d expect.' },
+      { title: 'Start building public credibility in your sector now — not at graduation', detail: '3–5 LinkedIn articles per year on your target sector compound dramatically. Cite primary sources (CIHI for healthcare, NEB for energy, OSFI for financial services). Boutique recruiters search LinkedIn by sector keyword.' },
+      { title: 'Get technical experience before you consult', detail: 'Clinical rotations, policy internships, lab work, or startup roles in your sector are worth more to a niche firm than another generalist internship. L.E.K. and ZS hire for credentials, not just GPA.' },
+      { title: 'Read the firm\'s published work before you apply', detail: 'L.E.K., ZS, and Oliver Wyman all publish sector-specific thought leadership. Reference a specific report in your cover letter — it demonstrates you engaged with the work, not just the careers page.' },
+      { title: 'Email a principal or associate directly — most boutiques don\'t do OCR', detail: 'L.E.K. Toronto, ZS, and Guidehouse often recruit outside of on-campus recruiting timelines. A specific, well-researched cold email to a senior consultant in your target practice has a surprisingly high response rate.' },
     ],
-    synthesis: 'Niche expertise is the most defensible career position in consulting — it compounds over decades while generalist skills face growing AI pressure. Your recruiting advantage is specificity: most candidates compete on GPA and case skills; you compete on a track record in the domain. Prioritize L.E.K. and CRA for structured paths into sector expertise, and Dalberg if impact is the north star. Start building your public voice now — the best boutique firms recruit people they already know.',
+    synthesis: 'Niche expertise is the most defensible consulting career position — it compounds over decades while generalist skills face growing AI pressure on routine analysis. Your recruiting advantage is specificity: most Ivey candidates compete on GPA and case skills; you compete on a track record in a domain. Prioritize L.E.K. and ZS Associates for structured sector paths, and Dalberg if impact is your north star. The best boutique firms recruit people they already know — start building your public voice in HBA1.',
   },
 };
 
-// ── STATE ──────────────────────────────────────────────────────────────────
-let currentQ = 0;
-let answers = new Array(QUESTIONS.length).fill(null);
-let chartInstance = null;
+// ── STATE ──────────────────────────────────────────────────
+let currentQ  = 0;
+let answers   = new Array(QUESTIONS.length).fill(null);
+let chartInst = null;
 
-// ── NAVIGATION ─────────────────────────────────────────────────────────────
+// ── NAVIGATION ─────────────────────────────────────────────
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -317,38 +534,34 @@ function showScreen(id) {
 
 function startQuiz() {
   currentQ = 0;
-  answers = new Array(QUESTIONS.length).fill(null);
+  answers  = new Array(QUESTIONS.length).fill(null);
   renderQuestion();
   showScreen('quiz');
 }
 
 function restartQuiz() {
-  if (chartInstance) { chartInstance.destroy(); chartInstance = null; }
+  if (chartInst) { chartInst.destroy(); chartInst = null; }
   startQuiz();
 }
 
-// ── QUIZ RENDER ────────────────────────────────────────────────────────────
+// ── QUIZ ───────────────────────────────────────────────────
 function renderQuestion() {
-  const q = QUESTIONS[currentQ];
+  const q     = QUESTIONS[currentQ];
   const total = QUESTIONS.length;
+  const pct   = Math.round((currentQ / total) * 100);
 
-  // Progress
-  const pct = Math.round((currentQ / total) * 100);
-  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressFill').style.width  = pct + '%';
   document.getElementById('progressLabel').textContent = `${currentQ + 1} / ${total}`;
-  document.getElementById('qCounter').textContent = `Question ${currentQ + 1}`;
+  document.getElementById('qCounter').textContent      = `Question ${currentQ + 1} of ${total}`;
+  document.getElementById('backBtn').style.display     = currentQ > 0 ? 'flex' : 'none';
 
-  // Back button
-  document.getElementById('backBtn').style.display = currentQ > 0 ? 'flex' : 'none';
-
-  // Build HTML
-  const selected = answers[currentQ];
+  const selected   = answers[currentQ];
   const optionsHTML = q.options.map((opt, i) => `
-    <button class="option-card ${selected === i ? 'selected' : ''}" onclick="selectOption(${i})">
-      <div class="option-icon">${opt.icon}</div>
+    <button class="opt-card ${selected === i ? 'selected' : ''}" onclick="selectOption(${i})">
+      <div class="opt-icon">${opt.icon}</div>
       <div>
-        <div class="option-label">${opt.label}</div>
-        ${opt.sub ? `<div class="option-sub">${opt.sub}</div>` : ''}
+        <div class="opt-main">${opt.label}</div>
+        ${opt.sub ? `<div class="opt-sub">${opt.sub}</div>` : ''}
       </div>
     </button>
   `).join('');
@@ -356,20 +569,15 @@ function renderQuestion() {
   const area = document.getElementById('questionArea');
   area.style.animation = 'none';
   area.innerHTML = `
-    <div class="q-category">${q.category}</div>
+    <div class="q-tag">${q.tag}</div>
     <div class="q-text">${q.text}</div>
     <div class="options-grid">${optionsHTML}</div>
   `;
-  // Re-trigger animation
-  requestAnimationFrame(() => {
-    area.style.animation = 'fadeInUp 0.35s ease both';
-  });
+  requestAnimationFrame(() => { area.style.animation = 'slideUp 0.3s ease both'; });
 }
 
 function selectOption(index) {
   answers[currentQ] = index;
-
-  // Show selection briefly, then advance
   renderQuestion();
   setTimeout(() => {
     if (currentQ < QUESTIONS.length - 1) {
@@ -378,199 +586,181 @@ function selectOption(index) {
     } else {
       computeResults();
     }
-  }, 280);
+  }, 260);
 }
 
 function prevQuestion() {
-  if (currentQ > 0) {
-    currentQ--;
-    renderQuestion();
-  }
+  if (currentQ > 0) { currentQ--; renderQuestion(); }
 }
 
-// ── SCORING ────────────────────────────────────────────────────────────────
+// ── SCORING ────────────────────────────────────────────────
 function computeResults() {
   const totals = { strategist: 0, digital: 0, deal: 0, ops: 0, niche: 0 };
-
-  answers.forEach((answerIndex, qIndex) => {
-    if (answerIndex === null) return;
-    const scores = QUESTIONS[qIndex].options[answerIndex].scores;
-    Object.keys(scores).forEach(k => { totals[k] += scores[k]; });
+  answers.forEach((ansIdx, qIdx) => {
+    if (ansIdx === null) return;
+    const sc = QUESTIONS[qIdx].options[ansIdx].scores;
+    Object.keys(sc).forEach(k => { totals[k] += sc[k]; });
   });
-
-  // Sort by score descending
-  const sorted = Object.entries(totals).sort((a, b) => b[1] - a[1]);
-  const topKey = sorted[0][0];
-  const maxScore = sorted[0][1];
-
-  // Normalize to percentages (relative to max achievable or max observed)
-  const maxPossible = Math.max(maxScore, 1);
-  const normalised = {};
-  sorted.forEach(([k, v]) => { normalised[k] = Math.round((v / maxPossible) * 100); });
-
-  renderResults(topKey, sorted, normalised);
+  const sorted    = Object.entries(totals).sort((a, b) => b[1] - a[1]);
+  const topKey    = sorted[0][0];
+  const maxScore  = Math.max(sorted[0][1], 1);
+  const normed    = {};
+  sorted.forEach(([k, v]) => { normed[k] = Math.round((v / maxScore) * 100); });
+  renderResults(topKey, sorted, normed);
 }
 
-// ── RESULTS RENDER ─────────────────────────────────────────────────────────
-function renderResults(topKey, sorted, normalised) {
+// ── RESULTS ────────────────────────────────────────────────
+const ARCH_LABELS = {
+  strategist: { label: 'The Strategist',       emoji: '♟️' },
+  digital:    { label: 'Digital Transformer',  emoji: '⚙️' },
+  deal:       { label: 'Deal Advisor',          emoji: '💼' },
+  ops:        { label: 'Operational Architect', emoji: '🏗️' },
+  niche:      { label: 'Niche Expert',          emoji: '🔬' },
+};
+
+function renderResults(topKey, sorted, normed) {
   const arch = ARCHETYPES[topKey];
-  const body = document.getElementById('resultsBody');
+  const matchPct = normed[topKey];
 
-  const matchScore = normalised[topKey];
-
-  // Score bars HTML
-  const archLabels = {
-    strategist: { label: 'The Strategist', emoji: '♟️' },
-    digital:    { label: 'Digital Transformer', emoji: '⚙️' },
-    deal:       { label: 'Deal Advisor', emoji: '💼' },
-    ops:        { label: 'Operational Architect', emoji: '🏗️' },
-    niche:      { label: 'Niche Expert', emoji: '🔬' },
-  };
-
-  const scoreBarsHTML = sorted.map(([k, v]) => {
-    const pct = normalised[k];
+  // Score bars
+  const scoreBarsHTML = sorted.map(([k]) => {
+    const pct = normed[k];
     return `
       <div class="score-row">
         <div class="score-meta">
-          <div class="score-archetype ${ARCHETYPES[k].colorClass}">
-            <span>${archLabels[k].emoji}</span> ${archLabels[k].label}
-          </div>
+          <div class="score-arch">${ARCH_LABELS[k].emoji} ${ARCH_LABELS[k].label}</div>
           <div class="score-pct">${pct}%</div>
         </div>
         <div class="score-track">
-          <div class="score-fill ${ARCHETYPES[k].fillClass}" data-width="${pct}"></div>
+          <div class="score-fill ${ARCHETYPES[k].fillClass}" data-w="${pct}"></div>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 
-  // Strengths HTML
+  // Strengths
   const strengthsHTML = arch.strengths.map(s => `
-    <div class="strength-card ${arch.bgClass}" style="border-color: rgba(255,255,255,0.06)">
+    <div class="white-card">
       <div class="strength-icon">${s.icon}</div>
       <div class="strength-name">${s.name}</div>
       <div class="strength-desc">${s.desc}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 
-  // Firms HTML
-  const tierLabels = { target: 'Best Fit', stretch: 'Stretch', safety: 'Solid Alternative' };
-  const tierClasses = { target: 'tier-target', stretch: 'tier-stretch', safety: 'tier-safety' };
+  // Firms
+  const tierLabel = { core: 'Core Target', strong: 'Strong Fit', alt: 'Good Alternative' };
+  const tierClass = { core: 'tier-core', strong: 'tier-strong', alt: 'tier-alt' };
   const firmsHTML = arch.firms.map(f => `
-    <div class="firm-card">
-      <div class="firm-tier ${tierClasses[f.tier]}">${tierLabels[f.tier]}</div>
+    <div class="white-card">
+      <div class="tier-pill ${tierClass[f.tier]}">${tierLabel[f.tier]}</div>
       <div class="firm-name">${f.name}</div>
+      <div class="firm-city">📍 ${f.cities}</div>
       <div class="firm-note">${f.note}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 
-  // Playbook HTML
+  // Playbook
   const playbookHTML = arch.playbook.map((p, i) => `
-    <div class="playbook-card">
-      <div class="playbook-step">
-        <div class="step-num">${i + 1}</div>
-        <div class="playbook-title">${p.title}</div>
+    <div class="white-card">
+      <div class="play-step">
+        <div class="play-num">${i + 1}</div>
+        <div class="play-title">${p.title}</div>
       </div>
-      <div class="playbook-detail">${p.detail}</div>
-    </div>
-  `).join('');
+      <div class="play-detail">${p.detail}</div>
+    </div>`).join('');
 
-  // Chart data (radar)
+  // Chart data
+  const chartOrder  = ['strategist', 'digital', 'deal', 'ops', 'niche'];
   const chartLabels = ['Strategist', 'Digital', 'Deal', 'Operations', 'Niche'];
-  const chartValues = [
-    normalised['strategist'],
-    normalised['digital'],
-    normalised['deal'],
-    normalised['ops'],
-    normalised['niche'],
-  ];
+  const chartVals   = chartOrder.map(k => normed[k] || 0);
 
-  body.innerHTML = `
+  document.getElementById('resultsBody').innerHTML = `
     <!-- HERO -->
-    <div class="result-hero ${arch.bgClass} ${arch.glowClass}">
-      <span class="archetype-emoji">${arch.emoji}</span>
-      <div class="result-eyebrow">Your Consulting Archetype</div>
-      <h2 class="archetype-name ${arch.colorClass}">${arch.name}</h2>
-      <p class="archetype-tagline">${arch.tagline}</p>
-      <div class="match-badge ${arch.badgeClass}">
-        <span>✦</span> ${matchScore}% match
-      </div>
+    <div class="r-hero ${arch.heroClass}">
+      <span class="r-emoji">${arch.emoji}</span>
+      <div class="r-eyebrow">Your Consulting Archetype</div>
+      <h2 class="r-name">${arch.name}</h2>
+      <p class="r-tagline">${arch.tagline}</p>
+      <div class="r-badge">${matchPct}% match with this archetype</div>
     </div>
 
     <!-- SCORE BREAKDOWN -->
-    <div class="scores-section">
-      <div class="section-title"><span>📊</span> How you scored across all archetypes</div>
-      <div class="score-bars">${scoreBarsHTML}</div>
+    <div class="r-section">
+      <div class="r-section-title">How you scored across all five archetypes</div>
+      <div class="white-card" style="padding: 28px 32px;">
+        <div class="score-list">${scoreBarsHTML}</div>
+      </div>
     </div>
 
     <!-- RADAR CHART -->
-    <div class="chart-section">
-      <div class="section-title"><span>🕸️</span> Your consulting profile</div>
-      <div class="chart-wrap">
-        <canvas id="radarChart"></canvas>
-      </div>
+    <div class="chart-container r-section">
+      <div class="r-section-title">Your consulting profile</div>
+      <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
     </div>
 
     <!-- STRENGTHS -->
-    <div class="strengths-section">
-      <div class="section-title"><span>💪</span> Your core strengths</div>
-      <div class="strengths-grid">${strengthsHTML}</div>
+    <div class="r-section">
+      <div class="r-section-title">Your core strengths</div>
+      <div class="card-grid-2">${strengthsHTML}</div>
     </div>
 
     <!-- FIRMS -->
-    <div class="firms-section">
-      <div class="section-title"><span>🏢</span> Firms that match your profile</div>
-      <div class="firms-grid">${firmsHTML}</div>
+    <div class="r-section">
+      <div class="r-section-title">Canadian firms that match your profile</div>
+      <div class="card-grid-3">${firmsHTML}</div>
     </div>
 
     <!-- PLAYBOOK -->
-    <div class="playbook-section">
-      <div class="section-title"><span>🗺️</span> Your recruiting playbook</div>
-      <div class="playbook-grid">${playbookHTML}</div>
+    <div class="r-section">
+      <div class="r-section-title">Your ICC recruiting playbook</div>
+      <div class="card-grid-3">${playbookHTML}</div>
     </div>
 
     <!-- SYNTHESIS -->
-    <div class="synthesis-section">
-      <div class="synthesis-title">Your bottom line</div>
-      <p class="synthesis-text">${arch.synthesis}</p>
-      <div class="share-row">
-        <button class="share-btn" onclick="restartQuiz()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
+    <div class="r-synthesis">
+      <div class="r-synth-label">ICC Bottom Line</div>
+      <div class="r-synth-title">What this means for your HBA1 recruiting</div>
+      <p class="r-synth-text">${arch.synthesis}</p>
+      <div class="synth-actions">
+        <button class="synth-btn" onclick="restartQuiz()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M1 4v6h6M23 20v-6h-6"/><path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/></svg>
           Retake Quiz
         </button>
-        <button class="share-btn" onclick="copyResult('${arch.name}')">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy My Result
+        <button class="synth-btn" onclick="copyResult('${arch.name}')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Share My Result
         </button>
       </div>
+    </div>
+
+    <div class="r-footer">
+      Published by Ivey Consulting Club · Ivey Business School · Western University<br>
+      For more resources, visit <strong>iveyconsultingclub.com</strong>
     </div>
   `;
 
   showScreen('results');
 
-  // Animate score bars
+  // Animate bars
   setTimeout(() => {
     document.querySelectorAll('.score-fill').forEach(el => {
-      el.style.width = el.dataset.width + '%';
+      el.style.width = el.dataset.w + '%';
     });
-  }, 100);
+  }, 120);
 
-  // Build radar chart
+  // Radar chart
   setTimeout(() => {
     const ctx = document.getElementById('radarChart').getContext('2d');
-    if (chartInstance) chartInstance.destroy();
-    chartInstance = new Chart(ctx, {
+    if (chartInst) chartInst.destroy();
+    chartInst = new Chart(ctx, {
       type: 'radar',
       data: {
         labels: chartLabels,
         datasets: [{
           label: 'Your Profile',
-          data: chartValues,
-          backgroundColor: `${arch.color}22`,
-          borderColor: arch.color,
+          data: chartVals,
+          backgroundColor: arch.chartColor + '1a',
+          borderColor: arch.chartColor,
           borderWidth: 2.5,
-          pointBackgroundColor: arch.color,
-          pointBorderColor: '#0a0e1a',
+          pointBackgroundColor: arch.chartColor,
+          pointBorderColor: '#fff',
           pointBorderWidth: 2,
           pointRadius: 5,
         }],
@@ -582,37 +772,30 @@ function renderResults(topKey, sorted, normalised) {
             beginAtZero: true,
             max: 100,
             ticks: { display: false, stepSize: 25 },
-            grid: { color: 'rgba(255,255,255,0.06)' },
-            angleLines: { color: 'rgba(255,255,255,0.06)' },
-            pointLabels: {
-              color: '#8b9bb8',
-              font: { family: 'Inter', size: 12, weight: '600' },
-            },
+            grid:         { color: 'rgba(0,0,0,0.06)' },
+            angleLines:   { color: 'rgba(0,0,0,0.06)' },
+            pointLabels:  { color: '#6c757d', font: { family: 'Inter', size: 12, weight: '600' } },
           },
         },
         plugins: {
           legend: { display: false },
           tooltip: {
-            callbacks: {
-              label: ctx => ` ${ctx.raw}%`,
-            },
-            backgroundColor: '#1a2235',
-            borderColor: 'rgba(255,255,255,0.08)',
+            callbacks: { label: ctx => ` ${ctx.raw}%` },
+            backgroundColor: '#1a1a2e',
+            titleColor: '#fff',
+            bodyColor: '#adb5bd',
+            borderColor: 'rgba(255,255,255,0.1)',
             borderWidth: 1,
-            titleColor: '#f0f4ff',
-            bodyColor: '#8b9bb8',
           },
         },
       },
     });
-  }, 300);
+  }, 350);
 }
 
 function copyResult(archetypeName) {
-  const text = `I just took the ConsultIQ quiz and I'm "${archetypeName}"! Find your consulting path at ConsultIQ.`;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Result copied to clipboard!');
-  }).catch(() => {
-    alert(`Your archetype: ${archetypeName}`);
-  });
+  const text = `I just took the ICC ConsultPath quiz and I'm "${archetypeName}"! Find your consulting path at iveyconsultingclub.com`;
+  navigator.clipboard.writeText(text)
+    .then(() => alert('Result copied — share it with your HBA1 cohort!'))
+    .catch(() => alert(`Your archetype: ${archetypeName} — share with your cohort!`));
 }
