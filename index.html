@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ConsultIQ — Find Your Consulting Path</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- LANDING -->
+  <section id="landing" class="screen active">
+    <div class="landing-bg">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+    </div>
+    <nav class="nav">
+      <div class="logo">Consult<span class="logo-iq">IQ</span></div>
+    </nav>
+    <div class="landing-content">
+      <div class="eyebrow">Free · 5 minutes · No sign-up</div>
+      <h1 class="headline">
+        Which consulting<br />
+        <span class="gradient-text">path is yours?</span>
+      </h1>
+      <p class="subheadline">
+        Answer 12 sharp questions. Walk away knowing your archetype,<br class="br-desktop" />
+        your edge, and exactly which firms to target.
+      </p>
+      <div class="stat-row">
+        <div class="stat-pill">
+          <span class="stat-num">5</span>
+          <span class="stat-label">Archetypes</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">25+</span>
+          <span class="stat-label">Firms mapped</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-num">12</span>
+          <span class="stat-label">Questions</span>
+        </div>
+      </div>
+      <button class="cta-btn" onclick="startQuiz()">
+        Find My Path
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <p class="disclaimer">Used by students at 40+ universities (est.)</p>
+    </div>
+    <div class="archetypes-preview">
+      <div class="arch-chip">The Strategist</div>
+      <div class="arch-chip">The Digital Transformer</div>
+      <div class="arch-chip">The Deal Advisor</div>
+      <div class="arch-chip">The Operational Architect</div>
+      <div class="arch-chip">The Niche Expert</div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="screen">
+    <div class="quiz-header">
+      <div class="logo-small">Consult<span class="logo-iq">IQ</span></div>
+      <div class="progress-wrapper">
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" id="progressFill"></div>
+        </div>
+        <span class="progress-label" id="progressLabel">1 / 12</span>
+      </div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="question-area" id="questionArea">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="back-btn" id="backBtn" onclick="prevQuestion()" style="display:none">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <div class="q-counter" id="qCounter">Question 1</div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="screen">
+    <div class="results-header">
+      <div class="logo-small">Consult<span class="logo-iq">IQ</span></div>
+      <button class="restart-btn" onclick="restartQuiz()">Retake Quiz</button>
+    </div>
+
+    <div class="results-body" id="resultsBody">
+      <!-- Injected by JS -->
+    </div>
+  </section>
+
+  <script src="app.js"></script>
+</body>
+</html>
