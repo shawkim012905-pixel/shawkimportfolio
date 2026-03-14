@@ -215,6 +215,99 @@ const INTERNAL_FIRMS = [
   { name: 'MLSE',         note: 'Strategy, analytics, and business operations at Canada\'s largest sports and entertainment company.' },
 ];
 
+const FIRM_LOGO_MAP = {
+  'McKinsey & Company': 'mckinsey-company.png',
+  'BCG': 'boston-consulting.png',
+  'Bain & Company': 'bain-company.png',
+  'Kearney': 'kearney.png',
+  'Monitor Deloitte': 'monitor-deloitte.png',
+  'Oliver Wyman': 'oliver-wyman.png',
+  'Roland Berger': 'roland-berger.png',
+  'EY-Parthenon': 'contrast-ernst-young-management-consulting.png',
+  'Simon-Kucher': 'simon-kucher.png',
+  'PMP Strategy': '',
+  'Accenture': 'accenture.png',
+  'IBM Consulting': 'ibm.png',
+  'Deloitte': 'deloitte.png',
+  'Cognizant': 'cognizant.png',
+  'Slalom': '',
+  'Konrad': 'konrad-group.png',
+  'SATOV Consultants': 'satov-consultants.png',
+  'KPMG Advisory': 'kpmg-international.png',
+  'PwC Deals': 'pwc.png',
+  'Alpha Financial Markets': 'alpha-fmc.png',
+  'Capco': 'capco.png',
+  'PwC Advisory': 'pwc.png',
+  'EY': 'ey.png',
+  'isaac': '',
+  'ZS Associates': 'zs.png',
+  'Coactuate': 'coactuate.png',
+  'Invictus Analytics + Strategy': 'invictus-analytics.png',
+  'Avascent': '',
+  'Hugessen Consulting': 'hugessen-consulting-inc.png',
+  'Jackman': 'jackman.png',
+  'Bond Brand Loyalty': 'bond-brand-loyalty.png',
+  'Level5 Strategy': 'level5-strategy.png',
+  'Wasserman': 'wasserman.png',
+  'Capital One': '',
+  'Mastercard': 'mastercard.png',
+  'Scotiabank': 'scotiabank.png',
+  'MLSE': '',
+};
+
+const LOGO_FILES = [
+  'accenture.png',
+  'alpha-fmc.png',
+  'bain-company.png',
+  'bdo-global.png',
+  'birch-hill-equity-partners.png',
+  'boston-consulting.png',
+  'capco.png',
+  'carpedia-international.png',
+  'coactuate.png',
+  'cognizant.png',
+  'contrast-ernst-young-management-consulting.png',
+  'deloitte.png',
+  'ey.png',
+  'hugessen-consulting-inc.png',
+  'ibm.png',
+  'invictus-analytics.png',
+  'jackman.png',
+  'kearney.png',
+  'konrad-group.png',
+  'kpmg-international.png',
+  'level5-strategy.png',
+  'mastercard.png',
+  'mckinsey-company.png',
+  'monitor-deloitte.png',
+  'oliver-wyman.png',
+  'pwc.png',
+  'roland-berger.png',
+  'satov-consultants.png',
+  'scotiabank.png',
+  'synpulse.png',
+  'wasserman.png',
+  'zs.png',
+];
+
+function getFirmLogo(name) {
+  const mapped = FIRM_LOGO_MAP[name];
+  if (mapped && LOGO_FILES.includes(mapped)) {
+    return `logos/${mapped}`;
+  }
+
+  if (mapped === '') {
+    return '';
+  }
+
+  const slug = name.toLowerCase().replace(/[\s&,+]/g, '-').replace(/[^a-z0-9-]/g, '').replace(/-+/g, '-').replace(/(^-|-$)/g, '') + '.png';
+  if (LOGO_FILES.includes(slug)) {
+    return `logos/${slug}`;
+  }
+
+  return '';
+}
+
 // ─── Questions ────────────────────────────────────────────────────────────────
 const QUESTIONS = [
   {
@@ -547,6 +640,7 @@ function buildResults() {
     const sizeTag   = f.size === 'large' ? 'Large' : f.size === 'mid' ? 'Mid-size' : 'Boutique';
     const c = el('div', 'card');
     c.innerHTML = `
+      <div class="firm-logo-wrap"><img src="${getFirmLogo(f.name)}" alt="${f.name} logo" onerror="this.style.display='none'" /></div>
       <div><span class="firm-tier ${tierClass}">${tierLabel}</span></div>
       <div class="firm-name">${f.name} <span class="firm-size-tag">${sizeTag}</span></div>
       <div class="firm-city">📍 ${f.city}</div>
@@ -555,6 +649,25 @@ function buildResults() {
     firmGrid.appendChild(c);
   });
   body.appendChild(firmSec);
+
+  // ── 4.5 All partner logos section ──────────────────────────────────────────
+  const logosSec = el('div', 'r-section');
+  logosSec.innerHTML = `
+    <div class="r-section-head">
+      <div class="r-section-title">All Partner Logos</div>
+      <div class="r-section-rule"></div>
+    </div>
+    <div class="logo-grid" id="logoGrid"></div>
+  `;
+  const logoGrid = logosSec.querySelector('#logoGrid');
+  LOGO_FILES.forEach(file => {
+    const img = document.createElement('img');
+    img.src = `logos/${file}`;
+    img.alt = `${file.replace(/\.png$/i, '').replace(/[-]/g, ' ')} logo`;
+    img.loading = 'lazy';
+    logoGrid.appendChild(img);
+  });
+  body.appendChild(logosSec);
 
   // ── 5. Internal section (conditional) ────────────────────────────────────
   if (internalScore >= 2) {

@@ -447,6 +447,27 @@ body {
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
 .grid-3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
 
+.logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 12px;
+  padding: 12px 4px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.logo-grid img {
+  width: 100%;
+  max-height: 52px;
+  object-fit: contain;
+  opacity: 0.94;
+  transition: opacity 0.15s, transform 0.15s;
+}
+.logo-grid img:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
 .card {
   background: var(--white);
   border: 1px solid var(--border);
@@ -477,6 +498,8 @@ body {
 .t-strong { background: #EFF6FF; color: #1D4ED8; border: 1px solid rgba(29,78,216,0.2); }
 .t-alt    { background: #F3F4F6; color: var(--body); border: 1px solid var(--border); }
 
+.firm-logo-wrap { width: 100%; margin-bottom: 10px; display: flex; align-items: center; justify-content: flex-start; }
+.firm-logo-wrap img { max-width: 140px; max-height: 30px; object-fit: contain; }
 .firm-name   { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
 .firm-city   { font-size: 0.72rem; color: var(--subtle); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; font-weight: 500; }
 .firm-note   { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
