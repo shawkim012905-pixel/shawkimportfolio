@@ -14,12 +14,7 @@
   --crimson-pale: #FDF2F2;
   --crimson-tint: rgba(123,24,24,0.06);
 
-  /* ── Neutrals ── */
-    --crimson:      #1D4ED8; /* blue-600 */
-    --crimson-dark: #1E3A8A; /* blue-800 */
-    --crimson-mid:  #2563EB; /* blue-500 */
-    --crimson-pale: #DBEAFE; /* blue-100 */
-    --crimson-tint: rgba(29,78,216,0.06); /* blue-600 tint */
+  /* Removed duplicate blue variables */
   --border-dark:  #D1D5DB;
   --bg:           #F9F8F6;
     --c-strategist: #1D4ED8; /* blue-600 */
@@ -37,7 +32,7 @@
   --radius:    12px;
   --radius-lg: 18px;
   --radius-xl: 24px;
-    color: var(--crimson); /* Updated to blue */
+  /* Removed stray color property */
   --shadow-lg: 0 8px 32px rgba(0,0,0,0.1);
 }
 
