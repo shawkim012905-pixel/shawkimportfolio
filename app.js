@@ -160,8 +160,8 @@ const ARCHETYPES = {
 const FIRMS = {
   strategist: [
     { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', note: 'The global benchmark. Recruits HBAs for generalist associate roles. Extremely case-intensive process.' },
-    { name: 'BCG',                  size: 'large',    tier: 'core',   city: 'Toronto · Montreal',           note: 'Generalist strategy firm with a strong culture of intellectual rigour and associate autonomy.' },
-    { name: 'Bain & Company',       size: 'large',    tier: 'core',   city: 'Toronto',                      note: 'Known for PE-friendly culture and implementation-oriented strategy. Strong HBA pipeline.' },
+    { name: 'BCG',                  size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', note: 'Generalist strategy firm with a strong culture of intellectual rigour and associate autonomy.' },
+    { name: 'Bain & Company',       size: 'large',    tier: 'core',   city: 'Toronto · Montreal',           note: 'Known for PE-friendly culture and implementation-oriented strategy. Strong HBA pipeline.' },
     { name: 'Kearney',              size: 'large',    tier: 'core',   city: 'Toronto',                      note: 'Operations-rooted strategy firm with strong manufacturing and supply chain practices.' },
     { name: 'Monitor Deloitte',     size: 'large',    tier: 'strong', city: 'Toronto · Vancouver',          note: 'Deloitte\'s strategy arm — rigorous strategy work with a larger recruiting class and an Ivey-friendly process.' },
     { name: 'Oliver Wyman',         size: 'large',    tier: 'strong', city: 'Toronto',                      note: 'Deep financial services and risk strategy focus. Excellent for those with FS backgrounds.' },
