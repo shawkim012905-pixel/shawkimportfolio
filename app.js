@@ -546,6 +546,11 @@ function buildResults() {
   const total    = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
   const sizeLabel = boutiqueScore >= 2 ? 'boutique' : boutiqueScore === 0 ? 'large' : 'neutral';
 
+  // Hybrid: second archetype is >= 80% of the top score
+  const isHybrid = ranked.length >= 2 && ranked[1][1] > 0 && ranked[1][1] >= ranked[0][1] * 0.8;
+  const winner2  = isHybrid ? ranked[1][0] : null;
+  const arch2    = isHybrid ? ARCHETYPES[winner2] : null;
+
   function sortFirms(arr) {
     const order = boutiqueScore >= 2 ? { boutique: 0, mid: 1, large: 2 }
                 : boutiqueScore === 0 ? { large: 0, mid: 1, boutique: 2 }
@@ -553,20 +558,41 @@ function buildResults() {
     return [...arr].sort((a, b) => (order[a.size] ?? 1) - (order[b.size] ?? 1));
   }
 
-  const firms = sortFirms(FIRMS[winner]).slice(0, 6);
+  let firms;
+  if (isHybrid) {
+    const total12 = ranked[0][1] + ranked[1][1];
+    const n1 = Math.ceil(6 * ranked[0][1] / total12);
+    const n2 = 6 - n1;
+    const pool1 = sortFirms(FIRMS[winner]).slice(0, n1);
+    const pool2 = sortFirms(FIRMS[winner2]).filter(f => !pool1.some(p => p.name === f.name)).slice(0, n2);
+    firms = [...pool1, ...pool2];
+  } else {
+    firms = sortFirms(FIRMS[winner]).slice(0, 6);
+  }
 
   const body = document.getElementById('resultsBody');
   body.innerHTML = '';
 
   // ── 1. Hero ────────────────────────────────────────────────────────────────
   const hero = el('div', `r-hero ${arch.heroClass}`);
-  hero.innerHTML = `
-    <span class="r-hero-emoji">${arch.emoji}</span>
-    <div class="r-hero-label">Your consulting archetype</div>
-    <div class="r-hero-name">${arch.name}</div>
-    <p class="r-hero-tagline">${arch.tagline}</p>
-    <span class="r-hero-badge">${arch.badge}</span>
-  `;
+  if (isHybrid) {
+    hero.innerHTML = `
+      <span class="r-hero-emoji">${arch.emoji} · ${arch2.emoji}</span>
+      <div class="r-hero-label">Your consulting archetype</div>
+      <div class="r-hero-name">${arch.name} · ${arch2.name.replace('The ', '')}</div>
+      <p class="r-hero-tagline">Your profile spans two paths — both are genuine fits worth pursuing.</p>
+      <span class="r-hero-badge">${arch.badge}</span>
+      <span class="r-hero-badge" style="margin-left:6px;">${arch2.badge}</span>
+    `;
+  } else {
+    hero.innerHTML = `
+      <span class="r-hero-emoji">${arch.emoji}</span>
+      <div class="r-hero-label">Your consulting archetype</div>
+      <div class="r-hero-name">${arch.name}</div>
+      <p class="r-hero-tagline">${arch.tagline}</p>
+      <span class="r-hero-badge">${arch.badge}</span>
+    `;
+  }
   body.appendChild(hero);
 
   // ── 2. Profile + Scores ───────────────────────────────────────────────────
@@ -575,10 +601,20 @@ function buildResults() {
   if (window.innerWidth < 640) twoCol.style.gridTemplateColumns = '1fr';
 
   const profCard = el('div', 'surface');
-  profCard.innerHTML = `
-    <div style="font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);margin-bottom:14px;">Your Profile</div>
-    <p style="font-size:0.9rem;line-height:1.75;color:var(--body);">${arch.description}</p>
-  `;
+  if (isHybrid) {
+    profCard.innerHTML = `
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);margin-bottom:14px;">Your Profile</div>
+      <p style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:4px;">${arch.emoji} ${arch.name}</p>
+      <p style="font-size:0.9rem;line-height:1.75;color:var(--body);margin-bottom:14px;">${arch.description}</p>
+      <p style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:4px;">${arch2.emoji} ${arch2.name}</p>
+      <p style="font-size:0.9rem;line-height:1.75;color:var(--body);">${arch2.description}</p>
+    `;
+  } else {
+    profCard.innerHTML = `
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);margin-bottom:14px;">Your Profile</div>
+      <p style="font-size:0.9rem;line-height:1.75;color:var(--body);">${arch.description}</p>
+    `;
+  }
 
   const scoreCard = el('div', 'surface');
   scoreCard.innerHTML = `
@@ -616,7 +652,10 @@ function buildResults() {
     <div class="grid-2"></div>
   `;
   const strGrid = strSec.querySelector('.grid-2');
-  arch.strengths.forEach(s => {
+  const strengths = isHybrid
+    ? [...arch.strengths.slice(0, 2), ...arch2.strengths.slice(0, 2)]
+    : arch.strengths;
+  strengths.forEach(s => {
     const c = el('div', 'card');
     c.innerHTML = `<div class="str-icon">${s.icon}</div><div class="str-name">${s.name}</div><div class="str-desc">${s.desc}</div>`;
     strGrid.appendChild(c);
@@ -624,9 +663,11 @@ function buildResults() {
   body.appendChild(strSec);
 
   // ── 4. Firms ──────────────────────────────────────────────────────────────
-  const sizeNote = sizeLabel === 'boutique' ? 'Showing boutique-first based on your preferences.'
-                 : sizeLabel === 'large'    ? 'Showing large firms first based on your preferences.'
-                 : 'Showing a mix of large and boutique firms.';
+  const sizeNote = isHybrid
+    ? `Showing firms from both your ${arch.name} and ${arch2.name} paths${sizeLabel === 'boutique' ? ', boutique-first' : sizeLabel === 'large' ? ', large-firm-first' : ''}.`
+    : sizeLabel === 'boutique' ? 'Showing boutique-first based on your preferences.'
+    : sizeLabel === 'large'    ? 'Showing large firms first based on your preferences.'
+    : 'Showing a mix of large and boutique firms.';
   const firmSec = el('div', 'r-section');
   firmSec.innerHTML = `
     <div class="r-section-head">
@@ -708,17 +749,40 @@ function buildResults() {
     <div class="surface"></div>
   `;
   const playCard = playSec.querySelector('.surface');
-  arch.playbook.forEach((p, i) => {
-    const step = el('div', 'play-step');
-    step.innerHTML = `
-      <div class="play-num">${i + 1}</div>
-      <div>
-        <div class="play-title">${p.title}</div>
-        <div class="play-detail">${p.detail}</div>
-      </div>
-    `;
-    playCard.appendChild(step);
-  });
+  if (isHybrid) {
+    const steps1 = arch.playbook.slice(0, 3);
+    const steps2 = arch2.playbook.slice(0, 2);
+    const addDivider = (label) => {
+      const d = el('div', '');
+      d.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);padding:10px 0 4px;';
+      d.textContent = label;
+      playCard.appendChild(d);
+    };
+    addDivider(`${arch.emoji} ${arch.name}`);
+    steps1.forEach((p, i) => {
+      const step = el('div', 'play-step');
+      step.innerHTML = `<div class="play-num">${i + 1}</div><div><div class="play-title">${p.title}</div><div class="play-detail">${p.detail}</div></div>`;
+      playCard.appendChild(step);
+    });
+    addDivider(`${arch2.emoji} ${arch2.name}`);
+    steps2.forEach((p, i) => {
+      const step = el('div', 'play-step');
+      step.innerHTML = `<div class="play-num">${i + 4}</div><div><div class="play-title">${p.title}</div><div class="play-detail">${p.detail}</div></div>`;
+      playCard.appendChild(step);
+    });
+  } else {
+    arch.playbook.forEach((p, i) => {
+      const step = el('div', 'play-step');
+      step.innerHTML = `
+        <div class="play-num">${i + 1}</div>
+        <div>
+          <div class="play-title">${p.title}</div>
+          <div class="play-detail">${p.detail}</div>
+        </div>
+      `;
+      playCard.appendChild(step);
+    });
+  }
   body.appendChild(playSec);
 
   // ── 7. Synthesis ──────────────────────────────────────────────────────────
@@ -726,7 +790,12 @@ function buildResults() {
   synth.innerHTML = `
     <div class="synth-eyebrow">Your Summary</div>
     <div class="synth-title">The Bottom Line</div>
-    <p class="synth-text">${arch.synthesis(sizeLabel)}</p>
+    ${isHybrid
+      ? `<p class="synth-text">Your results show a genuine split between ${arch.name} and ${arch2.name} — this isn't indecision, it's a broader fit profile. Pursue both paths in parallel and let your conversations with firms sharpen the focus.</p>
+         <p class="synth-text" style="margin-top:12px;"><strong>${arch.name.replace('The ', '')}:</strong> ${arch.synthesis(sizeLabel)}</p>
+         <p class="synth-text" style="margin-top:12px;"><strong>${arch2.name.replace('The ', '')}:</strong> ${arch2.synthesis(sizeLabel)}</p>`
+      : `<p class="synth-text">${arch.synthesis(sizeLabel)}</p>`
+    }
     <div class="synth-actions">
       <button class="synth-btn synth-btn-primary" onclick="window.print()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2M6 14h12v8H6z"/></svg>
