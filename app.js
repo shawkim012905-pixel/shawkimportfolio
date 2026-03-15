@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════
-   ICC ConsultPath — app.js
+   WMC ConsultPath — app.js
    13 questions · 5 archetypes · internal + size modifiers
    ══════════════════════════════════════════════ */
 
@@ -21,7 +21,7 @@ const ARCHETYPES = {
       { icon: '⚡', name: 'Intellectual Agility', desc: 'You can go deep on fintech Monday and telecom by Thursday without missing a beat.' },
     ],
     playbook: [
-      { title: 'Network through ICC mentors first', detail: 'Get on the mentor list in September — a warm referral from someone already at a firm significantly improves your chances of a resume screen.' },
+      { title: 'Network through WMC mentors first', detail: 'Get on the mentor list in September — a warm referral from someone already at a firm significantly improves your chances of a resume screen.' },
       { title: 'Master the case interview early', detail: 'Start case prep by October. Aim for 60+ cases with a mix of solo and partner practice before first-round season.' },
       { title: 'Build a sharp "why consulting" story', detail: 'Firms like McKinsey and Bain screen hard on motivation. Have a crisp, personal 60-second answer to "why us, why now."' },
       { title: 'Leverage Ivey\'s case competition ecosystem', detail: 'Compete in at least two case comps. They\'re free case practice with real stakes — and recruiters watch the results.' },
@@ -31,7 +31,7 @@ const ARCHETYPES = {
       const sizeNote = sizeLabel === 'boutique'
         ? 'Given your preference for leaner teams, boutique firms like Oliver Wyman, Roland Berger, or PMP Strategy may offer faster ownership and more direct client exposure.'
         : 'Your comfort with large-firm environments makes McKinsey, BCG, Bain, Monitor Deloitte, and EY-Parthenon natural fits to explore.';
-      return `You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the profile strategy consulting firms look for. ${sizeNote} Double down on case prep and ICC mentor relationships. Your profile is strong — now it's an execution problem.`;
+      return `You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the profile strategy consulting firms look for. ${sizeNote} Double down on case prep and WMC mentor relationships. Your profile is strong — now it's an execution problem.`;
     },
   },
 
@@ -156,7 +156,7 @@ const ARCHETYPES = {
   },
 };
 
-// ─── Firm data (36 ICC partner firms) ────────────────────────────────────────
+// ─── Firm data (36 WMC partner firms) ────────────────────────────────────────
 const FIRMS = {
   strategist: [
     { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', note: 'The global benchmark. Recruits HBAs for generalist associate roles. Extremely case-intensive process.' },
@@ -890,7 +890,7 @@ function buildResults() {
 
   // Footer
   const foot = el('div', 'r-foot');
-  foot.innerHTML = 'Built for HBA1s by the Ivey Consulting Club &nbsp;·&nbsp; icc@ivey.ca &nbsp;·&nbsp; Results are not stored';
+  foot.innerHTML = 'Built for HBA1s by Western Management Consulting &nbsp;·&nbsp; info@westernmanagementconsulting.com &nbsp;·&nbsp; Results are not stored';
   body.appendChild(foot);
 
   // Animate score bars
