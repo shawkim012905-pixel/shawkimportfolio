@@ -255,6 +255,46 @@ const FIRM_LOGO_MAP = {
   'MLSE': '',
 };
 
+const FIRM_URL_MAP = {
+  'McKinsey & Company':          'https://www.mckinsey.com',
+  'BCG':                         'https://www.bcg.com',
+  'Bain & Company':              'https://www.bain.com',
+  'Kearney':                     'https://www.kearney.com',
+  'Monitor Deloitte':            'https://www.deloitte.com/ca/en/services/strategy-analytics/monitor-deloitte.html',
+  'Oliver Wyman':                'https://www.oliverwyman.com',
+  'Roland Berger':               'https://www.rolandberger.com',
+  'EY-Parthenon':                'https://www.ey.com/en_ca/strategy/parthenon',
+  'Simon-Kucher':                'https://www.simon-kucher.com',
+  'PMP Strategy':                'https://www.pmpstrategy.com',
+  'Accenture':                   'https://www.accenture.com',
+  'IBM Consulting':              'https://www.ibm.com/consulting',
+  'Deloitte':                    'https://www.deloitte.com/ca/en.html',
+  'Cognizant':                   'https://www.cognizant.com',
+  'Slalom':                      'https://www.slalom.com',
+  'Konrad':                      'https://www.konrad.com',
+  'SATOV Consultants':           'https://satov.com',
+  'KPMG Advisory':               'https://kpmg.com/ca/en/home.html',
+  'PwC Deals':                   'https://www.pwc.com/ca/en/deals.html',
+  'Alpha Financial Markets':     'https://www.alpha-fmc.com',
+  'Capco':                       'https://www.capco.com',
+  'PwC Advisory':                'https://www.pwc.com/ca/en/consulting.html',
+  'EY':                          'https://www.ey.com/en_ca',
+  'isaac':                       'https://www.isaacconsulting.ca',
+  'ZS Associates':               'https://www.zs.com',
+  'Coactuate':                   'https://www.coactuate.com',
+  'Invictus Analytics + Strategy': 'https://www.invictusas.com',
+  'Avascent':                    'https://www.avascent.com',
+  'Hugessen Consulting':         'https://hugessen.com',
+  'Jackman':                     'https://www.jackman.com',
+  'Bond Brand Loyalty':          'https://bondbrandloyalty.com',
+  'Level5 Strategy':             'https://www.level5strategy.com',
+  'Wasserman':                   'https://www.teamwasserman.com',
+  'Capital One':                 'https://www.capitalone.ca',
+  'Mastercard':                  'https://www.mastercard.com',
+  'Scotiabank':                  'https://www.scotiabank.com',
+  'MLSE':                        'https://www.mlse.com',
+};
+
 const LOGO_FILES = [
   'accenture.png',
   'alpha-fmc.png',
@@ -685,9 +725,13 @@ function buildResults() {
     const tierLabel = f.tier === 'core' ? 'Core Target' : f.tier === 'strong' ? 'Strong Fit' : 'Also Consider';
     const tierClass = f.tier === 'core' ? 't-core' : f.tier === 'strong' ? 't-strong' : 't-alt';
     const sizeTag   = f.size === 'large' ? 'Large' : f.size === 'mid' ? 'Mid-size' : 'Boutique';
+    const url       = FIRM_URL_MAP[f.name] || '';
     const c = el('div', 'card');
     c.innerHTML = `
-      <div class="firm-logo-wrap"><img src="${getFirmLogo(f.name)}" alt="${f.name} logo" onerror="this.style.display='none'" /></div>
+      <div class="firm-logo-wrap">
+        <img src="${getFirmLogo(f.name)}" alt="${f.name} logo" onerror="this.style.display='none'" />
+        ${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="firm-learn-more">Learn More ↗</a>` : ''}
+      </div>
       <div><span class="firm-tier ${tierClass}">${tierLabel}</span></div>
       <div class="firm-name">${f.name} <span class="firm-size-tag">${sizeTag}</span></div>
       <div class="firm-city">📍 ${f.city}</div>

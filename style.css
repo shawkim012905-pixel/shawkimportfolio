@@ -498,8 +498,21 @@ body {
 .t-strong { background: #EFF6FF; color: #1D4ED8; border: 1px solid rgba(29,78,216,0.2); }
 .t-alt    { background: #F3F4F6; color: var(--body); border: 1px solid var(--border); }
 
-.firm-logo-wrap { width: 100%; margin-bottom: 10px; display: flex; align-items: center; justify-content: flex-start; }
-.firm-logo-wrap img { max-width: 140px; max-height: 30px; object-fit: contain; }
+.firm-logo-wrap { width: 100%; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.firm-logo-wrap img { max-width: 120px; max-height: 30px; object-fit: contain; flex-shrink: 0; }
+.firm-learn-more {
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--crimson);
+  text-decoration: none;
+  border: 1px solid rgba(123,24,24,0.25);
+  border-radius: 4px;
+  padding: 3px 7px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.firm-learn-more:hover { background: var(--crimson); color: #fff; }
 .firm-name   { font-size: 0.95rem; font-weight: 700; color: var(--ink); margin-bottom: 5px; }
 .firm-city   { font-size: 0.72rem; color: var(--subtle); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; font-weight: 500; }
 .firm-note   { font-size: 0.78rem; color: var(--muted); line-height: 1.55; }
