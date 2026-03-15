@@ -256,21 +256,21 @@ const FIRM_LOGO_MAP = {
 };
 
 const FIRM_URL_MAP = {
-  'McKinsey & Company':          'https://www.mckinsey.com',
-  'BCG':                         'https://www.bcg.com',
-  'Bain & Company':              'https://www.bain.com',
+  'McKinsey & Company':          'https://www.mckinsey.com/ca-en',
+  'BCG':                         'https://www.bcg.com/en-ca',
+  'Bain & Company':              'https://www.bain.com/offices/toronto/',
   'Kearney':                     'https://www.kearney.com',
-  'Monitor Deloitte':            'https://www.deloitte.com/ca/en/services/strategy-analytics/monitor-deloitte.html',
+  'Monitor Deloitte':            'https://www.deloitte.com/ca/en/services/consulting/monitor-deloitte.html',
   'Oliver Wyman':                'https://www.oliverwyman.com',
   'Roland Berger':               'https://www.rolandberger.com',
   'EY-Parthenon':                'https://www.ey.com/en_ca/strategy/parthenon',
   'Simon-Kucher':                'https://www.simon-kucher.com',
   'PMP Strategy':                'https://www.pmpstrategy.com',
-  'Accenture':                   'https://www.accenture.com',
-  'IBM Consulting':              'https://www.ibm.com/consulting',
+  'Accenture':                   'https://www.accenture.com/ca-en',
+  'IBM Consulting':              'https://www.ibm.com/ca-en/consulting',
   'Deloitte':                    'https://www.deloitte.com/ca/en.html',
   'Cognizant':                   'https://www.cognizant.com',
-  'Slalom':                      'https://www.slalom.com',
+  'Slalom':                      'https://www.slalom.com/en-ca',
   'Konrad':                      'https://www.konrad.com',
   'SATOV Consultants':           'https://satov.com',
   'KPMG Advisory':               'https://kpmg.com/ca/en/home.html',
@@ -290,7 +290,7 @@ const FIRM_URL_MAP = {
   'Level5 Strategy':             'https://www.level5strategy.com',
   'Wasserman':                   'https://www.teamwasserman.com',
   'Capital One':                 'https://www.capitalone.ca',
-  'Mastercard':                  'https://www.mastercard.com',
+  'Mastercard':                  'https://www.mastercard.ca',
   'Scotiabank':                  'https://www.scotiabank.com',
   'MLSE':                        'https://www.mlse.com',
 };
@@ -779,8 +779,15 @@ function buildResults() {
     `;
     const intGrid = intSec.querySelector('.internal-grid');
     INTERNAL_FIRMS.forEach(f => {
+      const url = FIRM_URL_MAP[f.name] || '';
       const c = el('div', 'internal-card');
-      c.innerHTML = `<div class="internal-card-name">${f.name}</div><div class="internal-card-note">${f.note}</div>`;
+      c.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:4px;">
+          <div class="internal-card-name" style="margin-bottom:0;">${f.name}</div>
+          ${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="firm-learn-more" style="border-color:rgba(255,255,255,0.3);color:#fff;">Learn More ↗</a>` : ''}
+        </div>
+        <div class="internal-card-note">${f.note}</div>
+      `;
       intGrid.appendChild(c);
     });
     body.appendChild(intSec);
