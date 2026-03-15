@@ -510,6 +510,13 @@ function restartQuiz() {
   showScreen('landing');
 }
 
+function bindActions() {
+  const startBtn = document.getElementById('startQuizBtn');
+  if (startBtn) startBtn.addEventListener('click', startQuiz);
+}
+
+document.addEventListener('DOMContentLoaded', bindActions);
+
 function prevQuestion() {
   if (currentQ === 0) return;
   // undo last answer
