@@ -365,7 +365,7 @@ const QUESTIONS = [
   },
   {
     id: 2, tag: 'Case Work',
-    text: 'Which Western/Ivey case type energizes you most?'
+    text: 'Which Western/Ivey case type energizes you most?',
     options: [
       { emoji: '♟️', main: 'Corporate strategy and competitive positioning', sub: 'Market entry, growth strategy, portfolio decisions', scores: { strategist: 3 } },
       { emoji: '📉', main: 'Turnarounds, restructuring, and cost transformation', sub: 'Fixing broken businesses through operations',    scores: { ops: 3 } },
