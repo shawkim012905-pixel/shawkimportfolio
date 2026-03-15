@@ -876,25 +876,6 @@ function buildResults() {
   `;
   body.appendChild(synth);
 
-  // ── 8. Our Partners ───────────────────────────────────────────────────────
-  const logosSec = el('div', 'r-section');
-  logosSec.innerHTML = `
-    <div class="r-section-head">
-      <div class="r-section-title">Our Partners</div>
-      <div class="r-section-rule"></div>
-    </div>
-    <div class="logo-grid" id="logoGrid"></div>
-  `;
-  const logoGrid = logosSec.querySelector('#logoGrid');
-  LOGO_FILES.forEach(file => {
-    const img = document.createElement('img');
-    img.src = `logos/${file}`;
-    img.alt = `${file.replace(/\.(png|jpg)$/i, '').replace(/[-]/g, ' ')} logo`;
-    img.loading = 'lazy';
-    logoGrid.appendChild(img);
-  });
-  body.appendChild(logosSec);
-
   // Footer
   const foot = el('div', 'r-foot');
   foot.innerHTML = 'Built for Western/Ivey students by Western Management Consulting &nbsp;·&nbsp; info@westernmanagementconsulting.com &nbsp;·&nbsp; Results are not stored';
