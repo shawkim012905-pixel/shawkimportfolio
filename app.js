@@ -814,6 +814,34 @@ function buildResults() {
   }
   body.appendChild(playSec);
 
+  // ── 6.5 Useful Tools ──────────────────────────────────────────────────────
+  const USEFUL_TOOLS = [
+    { name: 'RocketBlocks',          logo: 'logos/rocketblocks.png',            url: 'https://www.rocketblocks.me' },
+    { name: 'Management Consulted',  logo: 'logos/managementconsulted-com.png', url: 'https://managementconsulted.com' },
+    { name: 'CaseCoach',             logo: 'logos/casecoach.png',               url: 'https://casecoach.com' },
+  ];
+  const toolsSec = el('div', 'r-section');
+  toolsSec.innerHTML = `
+    <div class="r-section-head">
+      <div class="r-section-title">Useful Tools</div>
+      <div class="r-section-rule"></div>
+    </div>
+    <div class="tools-grid"></div>
+  `;
+  const toolsGrid = toolsSec.querySelector('.tools-grid');
+  USEFUL_TOOLS.forEach(t => {
+    const card = el('a', 'tool-card');
+    card.href = t.url;
+    card.target = '_blank';
+    card.rel = 'noopener noreferrer';
+    card.innerHTML = `
+      <img src="${t.logo}" alt="${t.name} logo" />
+      <div class="tool-name">${t.name}</div>
+    `;
+    toolsGrid.appendChild(card);
+  });
+  body.appendChild(toolsSec);
+
   // ── 7. Synthesis ──────────────────────────────────────────────────────────
   const synth = el('div', 'r-synthesis');
   synth.innerHTML = `
