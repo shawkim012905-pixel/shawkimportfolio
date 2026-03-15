@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════
-   WMC ConsultPath — app.js
+   ICC ConsultPath — app.js
    13 questions · 5 archetypes · internal + size modifiers
    ══════════════════════════════════════════════ */
 
@@ -21,17 +21,17 @@ const ARCHETYPES = {
       { icon: '⚡', name: 'Intellectual Agility', desc: 'You can go deep on fintech Monday and telecom by Thursday without missing a beat.' },
     ],
     playbook: [
-      { title: 'Network through WMC mentors first', detail: 'Get on the mentor list in September — a warm referral from someone already at a firm significantly improves your chances of a resume screen.' },
+      { title: 'Network through ICC mentors first', detail: 'Get on the mentor list in September — a warm referral from someone already at a firm significantly improves your chances of a resume screen.' },
       { title: 'Master the case interview early', detail: 'Start case prep by October. Aim for 60+ cases with a mix of solo and partner practice before first-round season.' },
       { title: 'Build a sharp "why consulting" story', detail: 'Firms like McKinsey and Bain screen hard on motivation. Have a crisp, personal 60-second answer to "why us, why now."' },
-      { title: 'Leverage Western/Ivey case competition ecosystem', detail: 'Compete in at least two case comps. They\'re free case practice with real stakes — and recruiters watch the results.' },
-      { title: 'Consider Monitor Deloitte and EY-Parthenon', detail: 'These firms offer rigorous strategy work with a Western/Ivey-friendly recruiting process — strong options if they align with your interests.' },
+      { title: 'Leverage Ivey\'s case competition ecosystem', detail: 'Compete in at least two case comps. They\'re free case practice with real stakes — and recruiters watch the results.' },
+      { title: 'Consider Monitor Deloitte and EY-Parthenon', detail: 'These firms offer rigorous strategy work with an Ivey-friendly recruiting process — strong options if they align with your interests.' },
     ],
     synthesis: (sizeLabel) => {
       const sizeNote = sizeLabel === 'boutique'
         ? 'Given your preference for leaner teams, boutique firms like Oliver Wyman, Roland Berger, or PMP Strategy may offer faster ownership and more direct client exposure.'
         : 'Your comfort with large-firm environments makes McKinsey, BCG, Bain, Monitor Deloitte, and EY-Parthenon natural fits to explore.';
-      return `You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the profile strategy consulting firms look for. ${sizeNote} Double down on case prep and WMC mentor relationships. Your profile is strong — now it's an execution problem.`;
+      return `You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the profile strategy consulting firms look for. ${sizeNote} Double down on case prep and ICC mentor relationships. Your profile is strong — now it's an execution problem.`;
     },
   },
 
@@ -55,7 +55,7 @@ const ARCHETYPES = {
       { title: 'Get a data or product project on your resume', detail: 'A personal project using Python, Tableau, or no-code tools signals genuine interest — not just keyword matching.' },
       { title: 'Target Accenture, IBM Consulting, and Deloitte digital arms', detail: 'These are the premium digital arms of large consulting firms — strategy-grade work with a tech-forward culture.' },
       { title: 'Consider Slalom and Konrad for boutique culture', detail: 'Slalom and Konrad offer faster growth, smaller teams, and direct client ownership compared to the megafirms.' },
-      { title: 'Network through tech industry events, not just consulting ones', detail: 'This practice area is still building its Western/Ivey network. LinkedIn outreach to recent grads at target firms converts well.' },
+      { title: 'Network through tech industry events, not just consulting ones', detail: 'This practice area is still building its Ivey network. LinkedIn outreach to recent grads at target firms converts well.' },
     ],
     synthesis: (sizeLabel) => {
       const sizeNote = sizeLabel === 'boutique'
@@ -83,7 +83,7 @@ const ARCHETYPES = {
     playbook: [
       { title: 'Know your deal mechanics cold', detail: 'SATOV, EY-Parthenon, and KPMG Deal Advisory will test commercial DD logic. Understand how PE firms assess quality of earnings, market attractiveness, and management teams.' },
       { title: 'Target SATOV early — it\'s the most HBA-friendly PE boutique', detail: 'SATOV exclusively focuses on mid-market PE diligence and value creation. Small team, direct exposure, and a strong HBA alumni presence.' },
-      { title: 'Build your financial narrative', detail: 'Have one compelling story of building or interpreting a financial model. Even a Western/Ivey course project counts if you tell it well.' },
+      { title: 'Build your financial narrative', detail: 'Have one compelling story of building or interpreting a financial model. Even an Ivey course project counts if you tell it well.' },
       { title: 'Consider Alpha FMC for asset management strategy', detail: 'If you\'re interested in the wealth/asset management space, Alpha FMC is a specialized boutique with a growing Toronto presence.' },
       { title: 'Pair deal targets with a generalist backup strategy', detail: 'Deal volumes are cyclical. Keep one or two large-firm advisory practices (KPMG, PwC Deals) on your list for stability.' },
     ],
@@ -113,7 +113,7 @@ const ARCHETYPES = {
     playbook: [
       { title: 'Lead with change management and implementation stories', detail: 'In interviews, frame experiences around what changed as a result of your work — not just what you analyzed.' },
       { title: 'Target PwC Advisory and EY for operations practices', detail: 'Both have strong operations transformation practices in Canada with active HBA recruiting pipelines.' },
-      { title: 'Consider isaac for boutique operations consulting', detail: 'isaac is a lean, Toronto-based operations firm with direct client exposure and a strong culture. Great for Western/Ivey students who want immediate impact.' },
+      { title: 'Consider isaac for boutique operations consulting', detail: 'isaac is a lean, Toronto-based operations firm with direct client exposure and a strong culture. Great for HBA1s who want immediate impact.' },
       { title: 'Position yourself as a strategy-to-execution bridge', detail: 'The best operational consultants can also do strategy. Frame yourself as someone who builds the plan AND can run the execution.' },
       { title: 'Explore Accenture Operations for scale', detail: 'Accenture\'s operations practice is one of the largest in Canada — diverse projects, global exposure, and clear promotion tracks.' },
     ],
@@ -156,7 +156,7 @@ const ARCHETYPES = {
   },
 };
 
-// ─── Firm data (36 WMC partner firms) ────────────────────────────────────────
+// ─── Firm data (36 ICC partner firms) ────────────────────────────────────────
 const FIRMS = {
   strategist: [
     { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', note: 'The global benchmark. Recruits HBAs for generalist associate roles. Extremely case-intensive process.' },
@@ -355,7 +355,7 @@ function getFirmLogo(name) {
 const QUESTIONS = [
   {
     id: 1, tag: 'Background',
-    text: 'Before Western/Ivey, what best describes your background?',
+    text: 'Before Ivey, what best describes your background?',
     options: [
       { emoji: '📐', main: 'STEM, engineering, or computer science',       sub: 'Data, systems, technical problem-solving',        scores: { digital: 2, ops: 1 } },
       { emoji: '💰', main: 'Finance, economics, or accounting',            sub: 'Numbers, markets, capital allocation',             scores: { deal: 2, strategist: 1 } },
@@ -365,7 +365,7 @@ const QUESTIONS = [
   },
   {
     id: 2, tag: 'Case Work',
-    text: 'Which Western/Ivey case type energizes you most?',
+    text: 'Which Ivey case type energizes you most?',
     options: [
       { emoji: '♟️', main: 'Corporate strategy and competitive positioning', sub: 'Market entry, growth strategy, portfolio decisions', scores: { strategist: 3 } },
       { emoji: '📉', main: 'Turnarounds, restructuring, and cost transformation', sub: 'Fixing broken businesses through operations',    scores: { ops: 3 } },
@@ -509,13 +509,6 @@ function startQuiz() {
 function restartQuiz() {
   showScreen('landing');
 }
-
-function bindActions() {
-  const startBtn = document.getElementById('startQuizBtn');
-  if (startBtn) startBtn.addEventListener('click', startQuiz);
-}
-
-document.addEventListener('DOMContentLoaded', bindActions);
 
 function prevQuestion() {
   if (currentQ === 0) return;
@@ -876,9 +869,28 @@ function buildResults() {
   `;
   body.appendChild(synth);
 
+  // ── 8. Our Partners ───────────────────────────────────────────────────────
+  const logosSec = el('div', 'r-section');
+  logosSec.innerHTML = `
+    <div class="r-section-head">
+      <div class="r-section-title">Our Partners</div>
+      <div class="r-section-rule"></div>
+    </div>
+    <div class="logo-grid" id="logoGrid"></div>
+  `;
+  const logoGrid = logosSec.querySelector('#logoGrid');
+  LOGO_FILES.forEach(file => {
+    const img = document.createElement('img');
+    img.src = `logos/${file}`;
+    img.alt = `${file.replace(/\.(png|jpg)$/i, '').replace(/[-]/g, ' ')} logo`;
+    img.loading = 'lazy';
+    logoGrid.appendChild(img);
+  });
+  body.appendChild(logosSec);
+
   // Footer
   const foot = el('div', 'r-foot');
-  foot.innerHTML = 'Built for Western/Ivey students by Western Management Consulting &nbsp;·&nbsp; info@westernmanagementconsulting.com &nbsp;·&nbsp; Results are not stored';
+  foot.innerHTML = 'Built for HBA1s by the Ivey Consulting Club &nbsp;·&nbsp; icc@ivey.ca &nbsp;·&nbsp; Results are not stored';
   body.appendChild(foot);
 
   // Animate score bars

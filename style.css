@@ -1,37 +1,30 @@
 /* ══════════════════════════════════════════════════════════
-   WMC CONSULTPATH
-   Western Management Consulting — Official Brand
-   Navy #002E5D · Gold #F9A825 · White #FFFFFF
+   ICC CONSULTPATH
+   Ivey Consulting Club — Official Brand
+   Crimson #7B1818 · Black #111111 · White #FFFFFF
    ══════════════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── WMC Core ── */
-  --crimson:      #002E5D; /* WMC navy */
-  --crimson-dark: #001F3A;
-  --crimson-mid:  #0B3F7F;
-  --crimson-pale: #EAEFF8;
-  --crimson-tint: rgba(0,46,93,0.08);
-  --wmc-gold:     #F9A825;
-  --wmc-gold-dark:#B38600;
+  /* ── ICC Core ── */
+  --crimson:      #7B1818;
+  --crimson-dark: #5C1212;
+  --crimson-mid:  #962020;
+  --crimson-pale: #FDF2F2;
+  --crimson-tint: rgba(123,24,24,0.06);
 
-  --border:       #D9E2EE;
-  --border-dark:  #A9BCD7;
-  --bg:           #F4F7FB;
+  /* Removed duplicate blue variables */
+  --border-dark:  #D1D5DB;
+  --bg:           #F9F8F6;
+    --c-strategist: #1D4ED8; /* blue-600 */
   --white:        #FFFFFF;
 
-  --ink:          #0E204C;
-  --body:         #1B2D4A;
-  --muted:        #4F6282;
-  --subtle:       #6E7D9A;
-  --shadow:       0 4px 16px rgba(0,0,0,0.08);
-
   /* ── Archetype accent colors ── */
-  --c-strategist: #002E5D;
-  --c-digital:    #0B5FD5;
-  --c-deal:       #9A5800;
-  --c-ops:        #0A6F5B;
+  --c-strategist: #7B1818;
+  --c-digital:    #1D4ED8;
+  --c-deal:       #92400E;
+  --c-ops:        #065F46;
   --c-niche:      #6D28D9;
   --c-internal:   #374151;
 
@@ -64,12 +57,11 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 22px 56px;
-  border-bottom: none;
+  border-bottom: 1px solid var(--border);
   background: var(--white);
 }
 
-.nav-logo { display: flex; align-items: center; gap: 12px; line-height: 1; text-decoration: none; cursor: pointer; color: inherit; }
-.nav-logo-img { height: 36px; max-height: 38px; width: auto; display: block; }
+.nav-logo { display: flex; flex-direction: column; gap: 0; line-height: 1; text-decoration: none; cursor: pointer; color: inherit; }
 .logo-line  { font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 1.15; }
 .logo-ivey  { color: var(--ink); }
 .logo-consulting { color: var(--crimson); }
@@ -164,7 +156,7 @@ body {
 /* Right column — archetype list */
 .landing-right {
   padding-left: 72px;
-  border-left: none;
+  border-left: 1px solid var(--border);
 }
 
 .arch-list-label {
@@ -183,7 +175,7 @@ body {
   align-items: center;
   gap: 16px;
   padding: 18px 0;
-  border-bottom: none;
+  border-bottom: 1px solid var(--border);
   cursor: default;
   transition: padding-left 0.18s;
 }
@@ -205,7 +197,7 @@ body {
 
 /* Stats bar */
 .landing-stats {
-  border-top: none;
+  border-top: 1px solid var(--border);
   padding: 28px 56px;
   display: flex;
   gap: 0;
@@ -216,7 +208,7 @@ body {
 .stat-block {
   flex: 1;
   padding: 0 32px;
-  border-right: none;
+  border-right: 1px solid var(--border);
 }
 .stat-block:first-child { padding-left: 0; }
 .stat-block:last-child  { border-right: none; }
