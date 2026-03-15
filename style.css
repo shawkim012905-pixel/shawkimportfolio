@@ -61,7 +61,7 @@ body {
   background: var(--white);
 }
 
-.nav-logo { display: flex; flex-direction: column; gap: 0; line-height: 1; text-decoration: none; cursor: pointer; }
+.nav-logo { display: flex; flex-direction: column; gap: 0; line-height: 1; text-decoration: none; cursor: pointer; color: inherit; }
 .logo-line  { font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 1.15; }
 .logo-ivey  { color: var(--ink); }
 .logo-consulting { color: var(--crimson); }
