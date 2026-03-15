@@ -61,11 +61,11 @@ body {
   background: var(--white);
 }
 
-.nav-logo { display: flex; align-items: baseline; gap: 0; line-height: 1; }
-.logo-ivey  { font-size: 1.15rem; font-weight: 900; color: var(--ink); letter-spacing: 0.5px; text-transform: uppercase; }
-.logo-sep   { font-size: 1.15rem; font-weight: 300; color: var(--border-dark); margin: 0 6px; }
-.logo-consulting { font-size: 1.15rem; font-weight: 900; color: var(--crimson); letter-spacing: 0.5px; text-transform: uppercase; }
-.logo-club  { font-size: 1.15rem; font-weight: 900; color: var(--ink); letter-spacing: 0.5px; text-transform: uppercase; }
+.nav-logo { display: flex; flex-direction: column; gap: 0; line-height: 1; }
+.logo-line  { font-size: 0.9rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; line-height: 1.15; }
+.logo-ivey  { color: var(--ink); }
+.logo-consulting { color: var(--crimson); }
+.logo-club  { color: var(--ink); }
 
 .nav-right { display: flex; align-items: center; gap: 20px; }
 .nav-edition {
