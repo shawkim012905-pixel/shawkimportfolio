@@ -10,8 +10,8 @@ const ARCHETYPES = {
     emoji: '♟️',
     name: 'The Strategist',
     tagline: 'You think at 30,000 feet — and love it.',
-    description: 'You\'re drawn to the hardest, most ambiguous questions. You want to sit across from a CEO and tell them what to do next. Your edge is structured thinking, crisp communication, and the ability to synthesize complexity into a one-pager that changes how leaders see their business. MBB and elite boutiques are where people like you belong.',
-    badge: 'Top-tier strategy consulting',
+    description: 'You\'re drawn to the hardest, most ambiguous questions. You want to sit across from a CEO and tell them what to do next. Your edge is structured thinking, crisp communication, and the ability to synthesize complexity into a one-pager that changes how leaders see their business. Strategy consulting is where your interests and instincts naturally align.',
+    badge: 'Strategy consulting',
     heroClass: 'hero-strategist',
     color: '#7B1818',
     strengths: [
@@ -21,17 +21,17 @@ const ARCHETYPES = {
       { icon: '⚡', name: 'Intellectual Agility', desc: 'You can go deep on fintech Monday and telecom by Thursday without missing a beat.' },
     ],
     playbook: [
-      { title: 'Network through ICC mentors first', detail: 'MBB referrals matter. Get on the mentor list in September — a warm referral doubles your resume screen rate.' },
+      { title: 'Network through ICC mentors first', detail: 'Get on the mentor list in September — a warm referral from someone already at a firm significantly improves your chances of a resume screen.' },
       { title: 'Master the case interview early', detail: 'Start case prep by October. Aim for 60+ cases with a mix of solo and partner practice before first-round season.' },
       { title: 'Build a sharp "why consulting" story', detail: 'Firms like McKinsey and Bain screen hard on motivation. Have a crisp, personal 60-second answer to "why us, why now."' },
       { title: 'Leverage Ivey\'s case competition ecosystem', detail: 'Compete in at least two case comps. They\'re free case practice with real stakes — and recruiters watch the results.' },
-      { title: 'Target Monitor Deloitte and EY-Parthenon as bridges', detail: 'If MBB first-rounds aren\'t landing, these firms offer the same calibre of strategy work with more Ivey-friendly recruiting.' },
+      { title: 'Consider Monitor Deloitte and EY-Parthenon', detail: 'These firms offer rigorous strategy work with an Ivey-friendly recruiting process — strong options if they align with your interests.' },
     ],
     synthesis: (sizeLabel) => {
       const sizeNote = sizeLabel === 'boutique'
-        ? 'Given your preference for leaner teams, boutique firms like Oliver Wyman, Roland Berger, or PMP Strategy may offer faster ownership alongside the MBB target.'
-        : 'Your comfort with large-firm environments puts McKinsey, BCG, and Bain squarely in your crosshairs alongside Monitor Deloitte and EY-Parthenon.';
-      return `Your instincts are built for the top of the consulting pyramid. You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the exact profile elite strategy firms recruit for. ${sizeNote} Double down on case prep and ICC mentor relationships. Your profile is strong — now it's an execution problem.`;
+        ? 'Given your preference for leaner teams, boutique firms like Oliver Wyman, Roland Berger, or PMP Strategy may offer faster ownership and more direct client exposure.'
+        : 'Your comfort with large-firm environments makes McKinsey, BCG, Bain, Monitor Deloitte, and EY-Parthenon natural fits to explore.';
+      return `You thrive on ambiguity, communicate with precision, and think in frameworks naturally — the profile strategy consulting firms look for. ${sizeNote} Double down on case prep and ICC mentor relationships. Your profile is strong — now it's an execution problem.`;
     },
   },
 
@@ -84,7 +84,7 @@ const ARCHETYPES = {
       { title: 'Know your deal mechanics cold', detail: 'SATOV, EY-Parthenon, and KPMG Deal Advisory will test commercial DD logic. Understand how PE firms assess quality of earnings, market attractiveness, and management teams.' },
       { title: 'Target SATOV early — it\'s the most HBA-friendly PE boutique', detail: 'SATOV exclusively focuses on mid-market PE diligence and value creation. Small team, direct exposure, and a strong HBA alumni presence.' },
       { title: 'Build your financial narrative', detail: 'Have one compelling story of building or interpreting a financial model. Even an Ivey course project counts if you tell it well.' },
-      { title: 'Consider Alpha FMC for asset management strategy', detail: 'If you\'re interested in the wealth/asset management space, Alpha FMC is a top-tier boutique with a growing Toronto presence.' },
+      { title: 'Consider Alpha FMC for asset management strategy', detail: 'If you\'re interested in the wealth/asset management space, Alpha FMC is a specialized boutique with a growing Toronto presence.' },
       { title: 'Pair deal targets with a generalist backup strategy', detail: 'Deal volumes are cyclical. Keep one or two large-firm advisory practices (KPMG, PwC Deals) on your list for stability.' },
     ],
     synthesis: (sizeLabel) => {
@@ -100,7 +100,7 @@ const ARCHETYPES = {
     emoji: '🏗️',
     name: 'The Operational Architect',
     tagline: 'You make organizations actually work better.',
-    description: 'You\'re fascinated by how large organizations function — and dysfunction. You want to redesign the processes, teams, and systems that determine whether a strategy succeeds or stalls. Your work creates visible, lasting change. Operations consulting is less glamorous than MBB strategy but arguably more impactful — and increasingly, the two are merging.',
+    description: 'You\'re fascinated by how large organizations function — and dysfunction. You want to redesign the processes, teams, and systems that determine whether a strategy succeeds or stalls. Your work creates visible, lasting change. Operations consulting is where strategy meets execution — and increasingly, the two are inseparable.',
     badge: 'Operations & transformation',
     heroClass: 'hero-ops',
     color: '#065F46',
@@ -160,10 +160,10 @@ const ARCHETYPES = {
 const FIRMS = {
   strategist: [
     { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', note: 'The global benchmark. Recruits HBAs for generalist associate roles. Extremely case-intensive process.' },
-    { name: 'BCG',                  size: 'large',    tier: 'core',   city: 'Toronto · Montreal',           note: 'Top-tier generalist strategy. Strong culture of intellectual rigour and associate autonomy.' },
+    { name: 'BCG',                  size: 'large',    tier: 'core',   city: 'Toronto · Montreal',           note: 'Generalist strategy firm with a strong culture of intellectual rigour and associate autonomy.' },
     { name: 'Bain & Company',       size: 'large',    tier: 'core',   city: 'Toronto',                      note: 'Known for PE-friendly culture and implementation-oriented strategy. Strong HBA pipeline.' },
     { name: 'Kearney',              size: 'large',    tier: 'core',   city: 'Toronto',                      note: 'Operations-rooted strategy firm with strong manufacturing and supply chain practices.' },
-    { name: 'Monitor Deloitte',     size: 'large',    tier: 'strong', city: 'Toronto · Vancouver',          note: 'Deloitte\'s strategy arm — MBB-calibre work with a larger recruiting class and more accessible process.' },
+    { name: 'Monitor Deloitte',     size: 'large',    tier: 'strong', city: 'Toronto · Vancouver',          note: 'Deloitte\'s strategy arm — rigorous strategy work with a larger recruiting class and an Ivey-friendly process.' },
     { name: 'Oliver Wyman',         size: 'large',    tier: 'strong', city: 'Toronto',                      note: 'Deep financial services and risk strategy focus. Excellent for those with FS backgrounds.' },
     { name: 'Roland Berger',        size: 'mid',      tier: 'strong', city: 'Toronto',                      note: 'European strategy heritage with a strong Canadian industrial and automotive practice.' },
     { name: 'EY-Parthenon',         size: 'large',    tier: 'strong', city: 'Toronto',                      note: 'EY\'s dedicated strategy practice — sits at the intersection of strategy and transactions.' },
@@ -405,7 +405,7 @@ const QUESTIONS = [
     id: 10, tag: 'Team Dynamic',
     text: 'What\'s your ideal team size and structure?',
     options: [
-      { emoji: '⚡', main: '2–4 people — small, elite, fast-moving',           sub: 'Everyone knows the whole picture, high individual ownership', scores: { strategist: 2, deal: 1 } },
+      { emoji: '⚡', main: '2–4 people — small, focused, fast-moving',          sub: 'Everyone knows the whole picture, high individual ownership', scores: { strategist: 2, deal: 1 } },
       { emoji: '🏢', main: '10–20 people — structured practice, clear roles',  sub: 'Deep expertise, clear career ladder, mentorship',              scores: { digital: 2, ops: 1 } },
       { emoji: '🏗️', main: 'Cross-functional project teams — varies by engagement', sub: 'Different mix every time, depends on the problem',        scores: { ops: 2, strategist: 1 } },
       { emoji: '🔬', main: 'Small specialist pod inside a larger firm',        sub: 'Deep domain team within a bigger platform',                    scores: { niche: 2, deal: 1 } },
@@ -435,7 +435,7 @@ const QUESTIONS = [
     id: 13, tag: 'Vision',
     text: 'In ten years, where do you see yourself?',
     options: [
-      { emoji: '🏆', main: 'Partner at a top-tier strategy or management consulting firm', sub: 'Leading high-stakes engagements, building a client roster',       scores: { strategist: 3 } },
+      { emoji: '🏆', main: 'Partner at a strategy or management consulting firm',          sub: 'Leading high-stakes engagements, building a client roster',       scores: { strategist: 3 } },
       { emoji: '🦄', main: 'Chief Strategy Officer or founder of a tech company',          sub: 'Building or running a business using digital as the moat',        scores: { digital: 3 } },
       { emoji: '🎯', main: 'Operating partner at a private equity fund',                   sub: 'Owning the strategic and operational agenda of portfolio companies', scores: { deal: 2, ops: 1 } },
       { emoji: '🌍', main: 'World-class expert in my industry or functional area',         sub: 'The name people mention when your sector comes up',               scores: { niche: 3 } },
