@@ -546,10 +546,13 @@ function buildResults() {
   const total    = Object.values(scores).reduce((a, b) => a + b, 0) || 1;
   const sizeLabel = boutiqueScore >= 2 ? 'boutique' : boutiqueScore === 0 ? 'large' : 'neutral';
 
-  // Hybrid: second archetype is >= 80% of the top score
-  const isHybrid = ranked.length >= 2 && ranked[1][1] > 0 && ranked[1][1] >= ranked[0][1] * 0.8;
-  const winner2  = isHybrid ? ranked[1][0] : null;
-  const arch2    = isHybrid ? ARCHETYPES[winner2] : null;
+  // Full hybrid (≥85% of top): all sections blend both archetypes
+  // Partial hybrid (≥60% of top): firms, playbook, and synthesis reflect secondary
+  const ratio    = ranked.length >= 2 && ranked[1][1] > 0 ? ranked[1][1] / ranked[0][1] : 0;
+  const isHybrid = ratio >= 0.85;
+  const hasSecondary = ratio >= 0.60;
+  const winner2  = hasSecondary ? ranked[1][0] : null;
+  const arch2    = hasSecondary ? ARCHETYPES[winner2] : null;
 
   function sortFirms(arr) {
     const order = boutiqueScore >= 2 ? { boutique: 0, mid: 1, large: 2 }
@@ -559,7 +562,7 @@ function buildResults() {
   }
 
   let firms;
-  if (isHybrid) {
+  if (hasSecondary) {
     const total12 = ranked[0][1] + ranked[1][1];
     const n1 = Math.ceil(6 * ranked[0][1] / total12);
     const n2 = 6 - n1;
@@ -663,7 +666,7 @@ function buildResults() {
   body.appendChild(strSec);
 
   // ── 4. Firms ──────────────────────────────────────────────────────────────
-  const sizeNote = isHybrid
+  const sizeNote = hasSecondary
     ? `Showing firms from both your ${arch.name} and ${arch2.name} paths${sizeLabel === 'boutique' ? ', boutique-first' : sizeLabel === 'large' ? ', large-firm-first' : ''}.`
     : sizeLabel === 'boutique' ? 'Showing boutique-first based on your preferences.'
     : sizeLabel === 'large'    ? 'Showing large firms first based on your preferences.'
@@ -749,9 +752,9 @@ function buildResults() {
     <div class="surface"></div>
   `;
   const playCard = playSec.querySelector('.surface');
-  if (isHybrid) {
-    const steps1 = arch.playbook.slice(0, 3);
-    const steps2 = arch2.playbook.slice(0, 2);
+  if (hasSecondary) {
+    const steps1 = arch.playbook.slice(0, isHybrid ? 3 : 4);
+    const steps2 = arch2.playbook.slice(0, isHybrid ? 2 : 1);
     const addDivider = (label) => {
       const d = el('div', '');
       d.style.cssText = 'font-size:0.68rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--subtle);padding:10px 0 4px;';
@@ -773,13 +776,7 @@ function buildResults() {
   } else {
     arch.playbook.forEach((p, i) => {
       const step = el('div', 'play-step');
-      step.innerHTML = `
-        <div class="play-num">${i + 1}</div>
-        <div>
-          <div class="play-title">${p.title}</div>
-          <div class="play-detail">${p.detail}</div>
-        </div>
-      `;
+      step.innerHTML = `<div class="play-num">${i + 1}</div><div><div class="play-title">${p.title}</div><div class="play-detail">${p.detail}</div></div>`;
       playCard.appendChild(step);
     });
   }
@@ -794,6 +791,9 @@ function buildResults() {
       ? `<p class="synth-text">Your results show a genuine split between ${arch.name} and ${arch2.name} — this isn't indecision, it's a broader fit profile. Pursue both paths in parallel and let your conversations with firms sharpen the focus.</p>
          <p class="synth-text" style="margin-top:12px;"><strong>${arch.name.replace('The ', '')}:</strong> ${arch.synthesis(sizeLabel)}</p>
          <p class="synth-text" style="margin-top:12px;"><strong>${arch2.name.replace('The ', '')}:</strong> ${arch2.synthesis(sizeLabel)}</p>`
+      : hasSecondary
+      ? `<p class="synth-text">${arch.synthesis(sizeLabel)}</p>
+         <p class="synth-text" style="margin-top:12px;"><strong>Also worth noting:</strong> Your ${arch2.name} tendencies are real — the ${arch2.name.replace('The ', '')} firms in your list above reflect that. Keep that interest visible in your conversations with those firms.</p>`
       : `<p class="synth-text">${arch.synthesis(sizeLabel)}</p>`
     }
     <div class="synth-actions">
