@@ -741,25 +741,6 @@ function buildResults() {
   });
   body.appendChild(firmSec);
 
-  // ── 4.5 All partner logos section ──────────────────────────────────────────
-  const logosSec = el('div', 'r-section');
-  logosSec.innerHTML = `
-    <div class="r-section-head">
-      <div class="r-section-title">All Partner Logos</div>
-      <div class="r-section-rule"></div>
-    </div>
-    <div class="logo-grid" id="logoGrid"></div>
-  `;
-  const logoGrid = logosSec.querySelector('#logoGrid');
-  LOGO_FILES.forEach(file => {
-    const img = document.createElement('img');
-    img.src = `logos/${file}`;
-    img.alt = `${file.replace(/\.png$/i, '').replace(/[-]/g, ' ')} logo`;
-    img.loading = 'lazy';
-    logoGrid.appendChild(img);
-  });
-  body.appendChild(logosSec);
-
   // ── 5. Internal section (conditional) ────────────────────────────────────
   if (internalScore >= 2) {
     const intSec = el('div', 'internal-banner');
@@ -859,6 +840,25 @@ function buildResults() {
     </div>
   `;
   body.appendChild(synth);
+
+  // ── 8. Our Partners ───────────────────────────────────────────────────────
+  const logosSec = el('div', 'r-section');
+  logosSec.innerHTML = `
+    <div class="r-section-head">
+      <div class="r-section-title">Our Partners</div>
+      <div class="r-section-rule"></div>
+    </div>
+    <div class="logo-grid" id="logoGrid"></div>
+  `;
+  const logoGrid = logosSec.querySelector('#logoGrid');
+  LOGO_FILES.forEach(file => {
+    const img = document.createElement('img');
+    img.src = `logos/${file}`;
+    img.alt = `${file.replace(/\.(png|jpg)$/i, '').replace(/[-]/g, ' ')} logo`;
+    img.loading = 'lazy';
+    logoGrid.appendChild(img);
+  });
+  body.appendChild(logosSec);
 
   // Footer
   const foot = el('div', 'r-foot');
