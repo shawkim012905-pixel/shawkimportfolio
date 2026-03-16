@@ -156,59 +156,61 @@ const ARCHETYPES = {
   },
 };
 
-// ─── Firm data (36 ICC partner firms) ────────────────────────────────────────
+// ─── Firm data ────────────────────────────────────────────────────────────────
+// tags: sector alignment for Q1/Q7 injection
+// teamSize: 'small' | 'medium' | 'large' — maps to Q10 team preference
 const FIRMS = {
   strategist: [
-    { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', tags: [],                          note: 'The global benchmark. Recruits HBAs for generalist associate roles. Extremely case-intensive process.' },
-    { name: 'BCG',                  size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Calgary', tags: [],                          note: 'Generalist strategy firm with a strong culture of intellectual rigour and associate autonomy.' },
-    { name: 'Bain & Company',       size: 'large',    tier: 'core',   city: 'Toronto · Montreal',           tags: [],                          note: 'Known for PE-friendly culture and implementation-oriented strategy. Strong HBA pipeline.' },
-    { name: 'Kearney',              size: 'large',    tier: 'core',   city: 'Toronto',                      tags: ['industrial'],              note: 'Operations-rooted strategy firm with strong manufacturing and supply chain practices.' },
-    { name: 'Monitor Deloitte',     size: 'large',    tier: 'strong', city: 'Toronto · Vancouver',          tags: [],                          note: 'Deloitte\'s strategy arm — rigorous strategy work with a larger recruiting class and an Ivey-friendly process.' },
-    { name: 'Oliver Wyman',         size: 'large',    tier: 'strong', city: 'Toronto',                      tags: ['financial'],               note: 'Deep financial services and risk strategy focus. Excellent for those with FS backgrounds.' },
-    { name: 'Roland Berger',        size: 'mid',      tier: 'strong', city: 'Toronto',                      tags: ['industrial'],              note: 'European strategy heritage with a strong Canadian industrial and automotive practice.' },
-    { name: 'EY-Parthenon',         size: 'large',    tier: 'strong', city: 'Toronto',                      tags: ['financial'],               note: 'EY\'s dedicated strategy practice — sits at the intersection of strategy and transactions.' },
-    { name: 'Simon-Kucher',         size: 'mid',      tier: 'alt',    city: 'Toronto',                      tags: ['consumer', 'financial'],   note: 'Global pricing and growth strategy leader. Rare and high-value specialization for HBAs.' },
-    { name: 'PMP Strategy',         size: 'boutique', tier: 'alt',    city: 'Toronto',                      tags: ['consumer'],                note: 'Boutique strategy firm focused on purposeful growth. Strong culture and direct ownership.' },
+    { name: 'McKinsey & Company',   size: 'large',    tier: 'core',   teamSize: 'medium', city: 'Toronto · Montreal · Calgary', tags: ['financial'],              note: 'Global benchmark for corporate strategy. Strong PE, FS, and public sector focus. Highly case-intensive recruiting process.' },
+    { name: 'BCG',                  size: 'large',    tier: 'core',   teamSize: 'medium', city: 'Toronto · Montreal · Calgary', tags: ['consumer'],               note: 'Generalist strategy with notable consumer goods strength. Rigorous intellectual culture and strong associate autonomy.' },
+    { name: 'Bain & Company',       size: 'large',    tier: 'core',   teamSize: 'medium', city: 'Toronto · Montreal',           tags: ['financial'],              note: 'The strongest PE focus of MBB. Implementation-oriented strategy with a highly collaborative team culture.' },
+    { name: 'Kearney',              size: 'large',    tier: 'core',   teamSize: 'medium', city: 'Toronto',                      tags: ['industrial'],             note: 'Strategy and operations firm with deep supply chain and industrial expertise. Less case-intensive than MBB, more implementation-focused.' },
+    { name: 'Monitor Deloitte',     size: 'large',    tier: 'strong', teamSize: 'medium', city: 'Toronto · Vancouver',          tags: [],                         note: 'Deloitte\'s dedicated corporate strategy arm. Rigorous strategy work with a larger recruiting class and an Ivey-friendly process.' },
+    { name: 'Oliver Wyman',         size: 'large',    tier: 'strong', teamSize: 'medium', city: 'Toronto',                      tags: ['financial'],              note: 'Deep financial services and risk strategy expertise. Strong for FS-oriented candidates; also houses Avascent for aerospace and defence.' },
+    { name: 'Roland Berger',        size: 'mid',      tier: 'strong', teamSize: 'small',  city: 'Toronto',                      tags: ['industrial'],             note: 'European strategy boutique with strong auto and industrials practice. Small teams, direct client access, and broad strategy exposure.' },
+    { name: 'EY-Parthenon',         size: 'large',    tier: 'strong', teamSize: 'medium', city: 'Toronto',                      tags: ['financial'],              note: 'Heavy PE and M&A focus — commercial due diligence, integration strategy, and carve-outs. Straddles strategy and transactions.' },
+    { name: 'Simon-Kucher',         size: 'mid',      tier: 'alt',    teamSize: 'medium', city: 'Toronto',                      tags: ['consumer', 'financial'],  note: 'Global leader in pricing and top-line growth strategy. Rare specialization with strong demand across consumer, FS, and tech.' },
+    { name: 'PMP Strategy',         size: 'boutique', tier: 'alt',    teamSize: 'small',  city: 'Toronto',                      tags: [],                         note: 'Small generalist strategy boutique. Direct client access from day one, high ownership, and a strong purpose-driven culture.' },
   ],
   digital: [
-    { name: 'Accenture',            size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Vancouver', tags: ['tech'],  note: 'Largest technology and digital consulting firm globally. Broad practice areas, fast-growing AI/data work.' },
-    { name: 'IBM Consulting',       size: 'large',    tier: 'core',   city: 'Toronto · Montreal',             tags: ['tech'],  note: 'Deep enterprise tech and AI transformation. Strong Red Hat and cloud platform practices.' },
-    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada',        tags: ['tech'],  note: 'Deloitte\'s tech consulting arm is one of the largest in Canada — broad sector coverage and strong HBA track.' },
-    { name: 'Cognizant',            size: 'large',    tier: 'strong', city: 'Toronto',                        tags: ['tech'],  note: 'Global digital engineering and IT services firm. Growing strategy-led transformation practice.' },
-    { name: 'Slalom',               size: 'mid',      tier: 'strong', city: 'Toronto',                        tags: ['tech'],  note: 'Consulting-meets-technology firm known for strong culture, local focus, and direct client work.' },
-    { name: 'Konrad',               size: 'boutique', tier: 'alt',    city: 'Toronto',                        tags: ['tech'],  note: 'Tech and digital consulting boutique. Strong design-thinking, product, and engineering culture.' },
+    { name: 'Accenture',            size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Montreal · Vancouver', tags: ['tech', 'financial'],  note: 'Global leader in technology and management consulting with deep FS practice. Large teams, broad sector exposure, fast-growing AI and data work.' },
+    { name: 'IBM Consulting',       size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Montreal',             tags: ['tech'],               note: 'Enterprise technology strategy — AI, cloud, and digital transformation. Large teams, deep tech integration, and strong Red Hat practices.' },
+    { name: 'Deloitte',             size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Across Canada',        tags: ['tech'],               note: 'Large-scale tech and management consulting. Broad sector coverage, strong HBA pipeline, and a wide range of practice areas.' },
+    { name: 'Cognizant',            size: 'large',    tier: 'strong', teamSize: 'large',  city: 'Toronto',                        tags: ['tech'],               note: 'Global digital engineering and IT services firm. Growing strategy-led transformation practice with a tech-first culture.' },
+    { name: 'Slalom',               size: 'large',    tier: 'strong', teamSize: 'medium', city: 'Toronto',                        tags: ['tech'],               note: 'Generalist tech consulting with a culture-first approach. Medium teams, local focus, and strong client-facing work from day one.' },
+    { name: 'Konrad',               size: 'boutique', tier: 'alt',    teamSize: 'small',  city: 'Toronto',                        tags: ['tech'],               note: 'Tech and product consulting boutique. Small teams, high design and engineering quality, and a strong startup-adjacent culture.' },
   ],
   deal: [
-    { name: 'SATOV Consultants',              size: 'boutique', tier: 'core',   city: 'Toronto',                 tags: [],                  note: 'Canada\'s leading boutique for mid-market PE diligence and value creation. Highly HBA-friendly and direct.' },
-    { name: 'EY-Parthenon',                   size: 'large',    tier: 'core',   city: 'Toronto',                 tags: ['financial'],       note: 'Straddles strategy and transactions — commercial DD, integration strategy, and carve-out work.' },
-    { name: 'KPMG Advisory',                  size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],            note: 'Large deals advisory practice with strong M&A transaction services and integration capability.' },
-    { name: 'PwC Deals',                      size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: [],                  note: 'PwC\'s transactions practice covers M&A strategy, commercial DD, and post-merger integration.' },
-    { name: 'Alpha Financial Markets',        size: 'boutique', tier: 'strong', city: 'Toronto',                 tags: ['financial'],       note: 'Global boutique specializing in asset and wealth management strategy. Growing Canadian presence.' },
-    { name: 'Capco',                          size: 'mid',      tier: 'alt',    city: 'Toronto',                 tags: ['financial', 'tech'], note: 'Financial services-focused consulting on tech, operations, and regulatory transformation. Deep FS niche.' },
-    { name: 'BDO',                            size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: ['financial'],         note: 'Mid-market advisory firm with a growing deals and restructuring practice. Strong access for HBAs outside Big 4.' },
+    { name: 'SATOV Consultants',       size: 'boutique', tier: 'core',   teamSize: 'small',  city: 'Toronto',                 tags: [],                    note: 'Canada\'s leading boutique for PE commercial diligence and value creation. Small teams, direct partner access, and Ivey-friendly recruiting.' },
+    { name: 'EY-Parthenon',            size: 'large',    tier: 'core',   teamSize: 'medium', city: 'Toronto',                 tags: ['financial'],         note: 'Heavy PE and M&A focus — commercial DD, integration strategy, and carve-outs. Large MNC platform with a strategy-and-transactions focus.' },
+    { name: 'KPMG Advisory',           size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Across Canada', tags: [],                    note: 'Large deals advisory with strong M&A transaction services and integration capabilities. Generalist with broad client base.' },
+    { name: 'PwC Deals',               size: 'large',    tier: 'strong', teamSize: 'large',  city: 'Toronto · Across Canada', tags: [],                    note: 'Large transactions practice covering M&A strategy, commercial DD, and post-merger integration. Generalist with broad sector access.' },
+    { name: 'Alpha Financial Markets', size: 'boutique', tier: 'strong', teamSize: 'small',  city: 'Toronto',                 tags: ['financial'],         note: 'Global boutique specializing in asset and wealth management strategy. Small teams with deep FS expertise and a growing Canadian presence.' },
+    { name: 'Capco',                   size: 'large',    tier: 'alt',    teamSize: 'medium', city: 'Toronto',                 tags: ['financial', 'tech'], note: 'Financial services management and tech consulting. Medium teams with strong depth across banking, insurance, and capital markets.' },
+    { name: 'BDO',                     size: 'large',    tier: 'strong', teamSize: 'medium', city: 'Toronto · Across Canada', tags: [],                    note: 'Mid-market advisory alternative to Big 4. Generalist management and advisory with growing deals, restructuring, and transaction services.' },
   ],
   ops: [
-    { name: 'PwC Advisory',         size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Strong Canadian operations and business transformation practice. Excellent HBA recruiting pipeline.' },
-    { name: 'EY',                   size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'EY\'s consulting practice focuses on business transformation, supply chain, and technology-led ops.' },
-    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Broad operations consulting practice — workforce, finance transformation, and supply chain.' },
-    { name: 'Accenture',            size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Accenture Operations is one of the largest transformation practices globally, with strong Canadian projects.' },
-    { name: 'IBM Consulting',       size: 'large',    tier: 'strong', city: 'Toronto · Montreal',      tags: ['tech'],       note: 'Process automation, enterprise resource planning, and AI-driven operations transformation.' },
-    { name: 'isaac',                size: 'boutique', tier: 'alt',    city: 'Toronto',                 tags: ['industrial'], note: 'Boutique operations consulting firm. Lean team, fast ownership, and a strong operations-first culture.' },
-    { name: 'Carpedia',             size: 'boutique', tier: 'strong', city: 'Toronto',                 tags: ['industrial'], note: 'Specialist in operational performance improvement. Known for implementation-heavy engagements and measurable results.' },
+    { name: 'PwC Advisory',   size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Large operations and transformation practice. Workforce, supply chain, and finance transformation with a strong HBA recruiting pipeline.' },
+    { name: 'EY',             size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Large management and advisory firm. Business transformation, supply chain, and technology-led operations across broad sectors.' },
+    { name: 'Deloitte',       size: 'large',    tier: 'core',   teamSize: 'large',  city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Broad operations consulting — workforce, finance transformation, and supply chain. Large teams with extensive Canadian client base.' },
+    { name: 'Accenture',      size: 'large',    tier: 'strong', teamSize: 'large',  city: 'Toronto · Across Canada', tags: ['tech', 'financial'], note: 'One of the largest operations transformation practices globally. Heavy tech and FS focus, large teams, and strong Canadian project exposure.' },
+    { name: 'IBM Consulting', size: 'large',    tier: 'strong', teamSize: 'large',  city: 'Toronto · Montreal',      tags: ['tech'],       note: 'Process automation, ERP, and AI-driven operations transformation. Large teams with deep enterprise tech and manufacturing practice.' },
+    { name: 'isaac',          size: 'boutique', tier: 'alt',    teamSize: 'small',  city: 'Toronto',                 tags: ['industrial'], note: 'Small local boutique focused on manufacturing and supply chain performance improvement. Direct ownership, lean teams, measurable results.' },
+    { name: 'Carpedia',       size: 'boutique', tier: 'strong', teamSize: 'small',  city: 'Toronto',                 tags: ['industrial'], note: 'Local boutique specializing in manufacturing and process operations. Small teams, implementation-heavy engagements, and a results-not-reports culture.' },
   ],
   niche: [
-    { name: 'ZS Associates',                  size: 'mid',      tier: 'core',   city: 'Toronto', tags: ['health'],              note: 'Global leader in life sciences consulting — commercial, pricing, and go-to-market for pharma and biotech.' },
-    { name: 'Coactuate',                      size: 'boutique', tier: 'core',   city: 'Toronto', tags: ['health'],              note: 'Healthcare and pharma consulting boutique. Comparable to ZS at a smaller, more accessible scale.' },
-    { name: 'Invictus Analytics + Strategy',  size: 'boutique', tier: 'core',   city: 'Toronto', tags: ['health'],              note: 'Analytics-driven healthcare and pharma strategy. Strong on data science meets consulting model.' },
-    { name: 'Avascent',                       size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['industrial'],          note: 'Strategy and management consulting focused exclusively on aerospace, defence, and government.' },
-    { name: 'Hugessen Consulting',            size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['financial'],           note: 'Executive compensation and HR strategy boutique. Unique niche with strong C-suite access.' },
-    { name: 'Jackman',                        size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['consumer'],            note: 'Brand, customer, and transformation strategy boutique. Known for bold creative-meets-strategic thinking.' },
-    { name: 'Bond Brand Loyalty',             size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['consumer'],            note: 'Loyalty program design, CX strategy, and brand engagement consulting. Consumer-facing strategy focus.' },
-    { name: 'Level5 Strategy',                size: 'boutique', tier: 'alt',    city: 'Toronto', tags: ['consumer'],            note: 'Boutique focused on retail and consumer strategy. Strong Canadian market knowledge.' },
-    { name: 'Wasserman',                      size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'sports'],  note: 'Sports marketing and talent management firm. Niche but powerful for sports/entertainment strategy roles.' },
-    { name: 'Simon-Kucher',                   size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'financial'],  note: 'Pricing and growth strategy specialist. Deep expertise in monetization across industries.' },
-    { name: 'Synpulse',                       size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Boutique management consulting firm specializing in banking, insurance, and wealth management. Strong tech-enabled transformation practice.' },
-    { name: 'Mastercard',                     size: 'large',    tier: 'strong', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Mastercard\'s external consulting arm advises banks, merchants, fintechs, and governments on payments strategy, digital transformation, and credit card economics.' },
+    { name: 'ZS Associates',                 size: 'mid',      tier: 'core',   teamSize: 'medium', city: 'Toronto', tags: ['health', 'tech'],         note: 'Global leader in life sciences consulting (75-80% pharma/biotech) with a growing tech practice. Strong commercial strategy and go-to-market focus.' },
+    { name: 'Coactuate',                     size: 'boutique', tier: 'core',   teamSize: 'small',  city: 'Toronto', tags: ['health'],                  note: 'Healthcare and pharma consulting boutique. Comparable to ZS at a smaller, more accessible scale for Ivey HBAs.' },
+    { name: 'Invictus Analytics + Strategy', size: 'boutique', tier: 'core',   teamSize: 'small',  city: 'Toronto', tags: ['health'],                  note: 'Healthcare data and analytics strategy boutique. Small local team with a strong data science meets consulting model.' },
+    { name: 'Avascent',                      size: 'boutique', tier: 'strong', teamSize: 'small',  city: 'Toronto', tags: ['industrial'],              note: 'Niche Oliver Wyman subsidiary focused exclusively on aerospace, defence, and government strategy. Small teams with deep sector expertise.' },
+    { name: 'Hugessen Consulting',           size: 'boutique', tier: 'strong', teamSize: 'small',  city: 'Toronto', tags: ['financial'],               note: 'Local boutique specializing in executive compensation and HR governance. Small teams, unique niche, and strong C-suite access.' },
+    { name: 'Jackman',                       size: 'boutique', tier: 'strong', teamSize: 'medium', city: 'Toronto', tags: ['consumer'],                note: 'Brand, customer, and transformation strategy boutique. Creative-meets-strategic consulting for consumer-facing businesses.' },
+    { name: 'Bond Brand Loyalty',            size: 'mid',      tier: 'strong', teamSize: 'medium', city: 'Toronto', tags: ['consumer'],                note: 'Retail and consumer consulting with a loyalty and CRM strategy focus. Medium teams, strong consumer sector depth.' },
+    { name: 'Level5 Strategy',               size: 'boutique', tier: 'alt',    teamSize: 'small',  city: 'Toronto', tags: ['consumer'],                note: 'Small local boutique in retail and consumer brand and growth strategy. Direct ownership and strong Canadian market expertise.' },
+    { name: 'Wasserman',                     size: 'mid',      tier: 'alt',    teamSize: 'medium', city: 'Toronto', tags: ['consumer', 'sports'],      note: 'Sports, entertainment, and talent management consulting. Niche but powerful for candidates with a genuine sports or entertainment passion.' },
+    { name: 'Simon-Kucher',                  size: 'mid',      tier: 'alt',    teamSize: 'medium', city: 'Toronto', tags: ['consumer', 'financial'],   note: 'Global pricing and top-line growth specialist. Medium teams across consumer, financial services, and tech sectors.' },
+    { name: 'Synpulse',                      size: 'boutique', tier: 'strong', teamSize: 'medium', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Financial services management and tech consulting boutique. Medium teams with strong banking, insurance, and wealth management focus.' },
+    { name: 'Mastercard',                    size: 'large',    tier: 'strong', teamSize: 'small',  city: 'Toronto', tags: ['financial', 'tech'],       note: 'Mastercard\'s Data & Strategy external consulting arm. Small teams advising banks, fintechs, and merchants on payments strategy and data analytics.' },
   ],
 };
 
@@ -617,27 +619,35 @@ function buildResults() {
   const winner2  = hasSecondary ? ranked[1][0] : null;
   const arch2    = hasSecondary ? ARCHETYPES[winner2] : null;
 
-  // ── Sector signals ────────────────────────────────────────────────────────
-  // Q1 background, Q7 sector, and Q2 marketing answer each contribute a signal.
-  // These drive firm injection DIRECTLY, independent of the archetype winner.
+  // ── Sector signals (Q1 background + Q7 sector + Q2 marketing) ───────────────
   const Q1_SECTOR_MAP = { 0: 'tech', 1: 'financial', 2: 'health', 3: null };
   const Q7_SECTOR_MAP = { 0: 'health', 1: 'financial', 2: 'tech', 3: 'industrial', 4: 'industrial', 5: 'consumer', 6: 'industrial' };
   const q1Signal     = Q1_SECTOR_MAP[answers[0]] ?? null;
   const q7Signal     = Q7_SECTOR_MAP[answers[6]] ?? null;
-  const q2Signal     = answers[1] === 4 ? 'consumer' : null; // marketing/brand case option
-  const sectorSignal = q2Signal || q7Signal; // Q2 marketing takes precedence over Q7
+  const q2Signal     = answers[1] === 4 ? 'consumer' : null;
+  const sectorSignal = q2Signal || q7Signal;
 
-  // How many of the 6 firm slots are reserved for sector-matched firms:
-  //   Q1 background AND Q7 sector both agree → 3 slots (strong double signal)
-  //   Only Q7 sector (or Q2 marketing) → 2 slots
+  // Q1 + Q7 agreeing = 3 sector-injected slots; Q7 alone = 2
   const q1MatchesSector = q1Signal && q1Signal === sectorSignal;
   const sectorSlots     = sectorSignal ? (q1MatchesSector ? 3 : 2) : 0;
 
+  // ── Team size signal (Q10, index 9) ──────────────────────────────────────────
+  // 0 = 2-4 people → small | 1 = 10-20 people → large | 2 = cross-functional → null | 3 = specialist pod → small
+  const Q10_TEAM_MAP = { 0: 'small', 1: 'large', 2: null, 3: 'small' };
+  const teamSignal   = Q10_TEAM_MAP[answers[9]] ?? null;
+
   function sortFirms(arr) {
-    const order = boutiqueScore >= 2 ? { boutique: 0, mid: 1, large: 2 }
-                : boutiqueScore === 0 ? { large: 0, mid: 1, boutique: 2 }
-                : { mid: 0, large: 1, boutique: 2 };
-    return [...arr].sort((a, b) => (order[a.size] ?? 1) - (order[b.size] ?? 1));
+    const sizeOrder = boutiqueScore >= 2 ? { boutique: 0, mid: 1, large: 2 }
+                    : boutiqueScore === 0 ? { large: 0, mid: 1, boutique: 2 }
+                    : { mid: 0, large: 1, boutique: 2 };
+    return [...arr].sort((a, b) => {
+      // 1. Team size match (Q10)
+      const aTeam = teamSignal && a.teamSize === teamSignal ? 0 : 1;
+      const bTeam = teamSignal && b.teamSize === teamSignal ? 0 : 1;
+      if (aTeam !== bTeam) return aTeam - bTeam;
+      // 2. Firm scale preference (Q8)
+      return (sizeOrder[a.size] ?? 1) - (sizeOrder[b.size] ?? 1);
+    });
   }
 
   // Pull sector-matched firms from ALL archetype buckets (not just the winner's)
