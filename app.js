@@ -208,12 +208,12 @@ const FIRMS = {
     { name: 'Wasserman',                      size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'sports'],  note: 'Sports marketing and talent management firm. Niche but powerful for sports/entertainment strategy roles.' },
     { name: 'Simon-Kucher',                   size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'financial'],  note: 'Pricing and growth strategy specialist. Deep expertise in monetization across industries.' },
     { name: 'Synpulse',                       size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Boutique management consulting firm specializing in banking, insurance, and wealth management. Strong tech-enabled transformation practice.' },
+    { name: 'Mastercard',                     size: 'large',    tier: 'strong', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Mastercard\'s external consulting arm advises banks, merchants, fintechs, and governments on payments strategy, digital transformation, and credit card economics.' },
   ],
 };
 
 const INTERNAL_FIRMS = [
   { name: 'Capital One',                note: 'Robust in-house strategy and analytics teams across cards, auto, and enterprise. Active HBA recruiter.' },
-  { name: 'Mastercard',                 note: 'Mastercard Advisors and internal strategy teams. Data-driven, global exposure from a Toronto base.' },
   { name: 'Scotiabank',                 note: 'Corporate Strategy and Business Development teams. Strong pipeline for HBAs interested in banking strategy.' },
   { name: 'MLSE',                       note: 'Strategy, analytics, and business operations at Canada\'s largest sports and entertainment company.' },
   { name: 'Birch Hill Equity Partners', note: 'Mid-market Canadian PE firm. In-house strategy and technology roles sit at the intersection of deal execution and portfolio value creation.' },
@@ -298,7 +298,7 @@ const FIRM_URL_MAP = {
   'Level5 Strategy':             'https://www.level5strategy.com',
   'Wasserman':                   'https://www.teamwasserman.com',
   'Capital One':                 'https://www.capitalone.ca',
-  'Mastercard':                  'https://www.mastercard.ca',
+  'Mastercard':                  'https://www.mastercardservices.com/en/advisors',
   'Scotiabank':                  'https://www.scotiabank.com',
   'MLSE':                        'https://www.mlse.com',
   'Birch Hill Equity Partners':  'https://www.birchhillequity.com',

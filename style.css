@@ -14,10 +14,14 @@
   --crimson-pale: #FDF2F2;
   --crimson-tint: rgba(123,24,24,0.06);
 
-  /* Removed duplicate blue variables */
+  /* ── Neutral palette ── */
+  --ink:          #111827;
+  --body:         #374151;
+  --muted:        #6B7280;
+  --subtle:       #9CA3AF;
+  --border:       #E5E7EB;
   --border-dark:  #D1D5DB;
   --bg:           #F9F8F6;
-    --c-strategist: #1D4ED8; /* blue-600 */
   --white:        #FFFFFF;
 
   /* ── Archetype accent colors ── */
