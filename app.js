@@ -617,36 +617,65 @@ function buildResults() {
   const winner2  = hasSecondary ? ranked[1][0] : null;
   const arch2    = hasSecondary ? ARCHETYPES[winner2] : null;
 
-  // Detect sector signal from Q7 (index 6) and Q2 marketing answer (index 1, option 4)
+  // ── Sector signals ────────────────────────────────────────────────────────
+  // Q1 background, Q7 sector, and Q2 marketing answer each contribute a signal.
+  // These drive firm injection DIRECTLY, independent of the archetype winner.
+  const Q1_SECTOR_MAP = { 0: 'tech', 1: 'financial', 2: 'health', 3: null };
   const Q7_SECTOR_MAP = { 0: 'health', 1: 'financial', 2: 'tech', 3: 'industrial', 4: 'industrial', 5: 'consumer', 6: 'industrial' };
-  const q7Signal = Q7_SECTOR_MAP[answers[6]] ?? null;
-  const q2Signal = answers[1] === 4 ? 'consumer' : null; // marketing/brand option
-  const sectorSignal = q2Signal || q7Signal; // Q2 marketing takes precedence
+  const q1Signal     = Q1_SECTOR_MAP[answers[0]] ?? null;
+  const q7Signal     = Q7_SECTOR_MAP[answers[6]] ?? null;
+  const q2Signal     = answers[1] === 4 ? 'consumer' : null; // marketing/brand case option
+  const sectorSignal = q2Signal || q7Signal; // Q2 marketing takes precedence over Q7
+
+  // How many of the 6 firm slots are reserved for sector-matched firms:
+  //   Q1 background AND Q7 sector both agree → 3 slots (strong double signal)
+  //   Only Q7 sector (or Q2 marketing) → 2 slots
+  const q1MatchesSector = q1Signal && q1Signal === sectorSignal;
+  const sectorSlots     = sectorSignal ? (q1MatchesSector ? 3 : 2) : 0;
 
   function sortFirms(arr) {
     const order = boutiqueScore >= 2 ? { boutique: 0, mid: 1, large: 2 }
                 : boutiqueScore === 0 ? { large: 0, mid: 1, boutique: 2 }
                 : { mid: 0, large: 1, boutique: 2 };
-    return [...arr].sort((a, b) => {
-      // Sector-matched firms rise above non-matched, within the same size tier
-      const aMatch = sectorSignal && a.tags?.includes(sectorSignal) ? 0 : 1;
-      const bMatch = sectorSignal && b.tags?.includes(sectorSignal) ? 0 : 1;
-      if (aMatch !== bMatch) return aMatch - bMatch;
-      return (order[a.size] ?? 1) - (order[b.size] ?? 1);
-    });
+    return [...arr].sort((a, b) => (order[a.size] ?? 1) - (order[b.size] ?? 1));
   }
 
-  let firms;
+  // Pull sector-matched firms from ALL archetype buckets (not just the winner's)
+  function getAllSectorFirms(signal) {
+    const seen = new Set();
+    const result = [];
+    for (const bucket of Object.values(FIRMS)) {
+      for (const f of bucket) {
+        if (f.tags?.includes(signal) && !seen.has(f.name)) {
+          seen.add(f.name);
+          result.push(f);
+        }
+      }
+    }
+    return result;
+  }
+
+  const sectorFirms = sectorSlots > 0
+    ? sortFirms(getAllSectorFirms(sectorSignal)).slice(0, sectorSlots)
+    : [];
+
+  // Fill remaining slots from the archetype winner (and secondary if hybrid)
+  const archetypeSlots = 6 - sectorFirms.length;
+  const excluded = new Set(sectorFirms.map(f => f.name));
+
+  let archetypeFirms;
   if (hasSecondary) {
     const total12 = ranked[0][1] + ranked[1][1];
-    const n1 = Math.ceil(6 * ranked[0][1] / total12);
-    const n2 = 6 - n1;
-    const pool1 = sortFirms(FIRMS[winner]).slice(0, n1);
-    const pool2 = sortFirms(FIRMS[winner2]).filter(f => !pool1.some(p => p.name === f.name)).slice(0, n2);
-    firms = [...pool1, ...pool2];
+    const n1 = Math.ceil(archetypeSlots * ranked[0][1] / total12);
+    const n2 = archetypeSlots - n1;
+    const pool1 = sortFirms(FIRMS[winner]).filter(f => !excluded.has(f.name)).slice(0, n1);
+    const pool2 = sortFirms(FIRMS[winner2]).filter(f => !excluded.has(f.name) && !pool1.some(p => p.name === f.name)).slice(0, n2);
+    archetypeFirms = [...pool1, ...pool2];
   } else {
-    firms = sortFirms(FIRMS[winner]).slice(0, 6);
+    archetypeFirms = sortFirms(FIRMS[winner]).filter(f => !excluded.has(f.name)).slice(0, archetypeSlots);
   }
+
+  const firms = [...sectorFirms, ...archetypeFirms];
 
   const body = document.getElementById('resultsBody');
   body.innerHTML = '';
