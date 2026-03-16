@@ -173,7 +173,7 @@ const FIRMS = {
   digital: [
     { name: 'Accenture',            size: 'large',    tier: 'core',   city: 'Toronto · Montreal · Vancouver', tags: ['tech'],  note: 'Largest technology and digital consulting firm globally. Broad practice areas, fast-growing AI/data work.' },
     { name: 'IBM Consulting',       size: 'large',    tier: 'core',   city: 'Toronto · Montreal',             tags: ['tech'],  note: 'Deep enterprise tech and AI transformation. Strong Red Hat and cloud platform practices.' },
-    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada',        tags: [],        note: 'Deloitte\'s tech consulting arm is one of the largest in Canada — broad sector coverage and strong HBA track.' },
+    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada',        tags: ['tech'],  note: 'Deloitte\'s tech consulting arm is one of the largest in Canada — broad sector coverage and strong HBA track.' },
     { name: 'Cognizant',            size: 'large',    tier: 'strong', city: 'Toronto',                        tags: ['tech'],  note: 'Global digital engineering and IT services firm. Growing strategy-led transformation practice.' },
     { name: 'Slalom',               size: 'mid',      tier: 'strong', city: 'Toronto',                        tags: ['tech'],  note: 'Consulting-meets-technology firm known for strong culture, local focus, and direct client work.' },
     { name: 'Konrad',               size: 'boutique', tier: 'alt',    city: 'Toronto',                        tags: ['tech'],  note: 'Tech and digital consulting boutique. Strong design-thinking, product, and engineering culture.' },
@@ -181,18 +181,20 @@ const FIRMS = {
   deal: [
     { name: 'SATOV Consultants',              size: 'boutique', tier: 'core',   city: 'Toronto',                 tags: [],                  note: 'Canada\'s leading boutique for mid-market PE diligence and value creation. Highly HBA-friendly and direct.' },
     { name: 'EY-Parthenon',                   size: 'large',    tier: 'core',   city: 'Toronto',                 tags: ['financial'],       note: 'Straddles strategy and transactions — commercial DD, integration strategy, and carve-out work.' },
-    { name: 'KPMG Advisory',                  size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: [],                  note: 'Large deals advisory practice with strong M&A transaction services and integration capability.' },
+    { name: 'KPMG Advisory',                  size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],            note: 'Large deals advisory practice with strong M&A transaction services and integration capability.' },
     { name: 'PwC Deals',                      size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: [],                  note: 'PwC\'s transactions practice covers M&A strategy, commercial DD, and post-merger integration.' },
     { name: 'Alpha Financial Markets',        size: 'boutique', tier: 'strong', city: 'Toronto',                 tags: ['financial'],       note: 'Global boutique specializing in asset and wealth management strategy. Growing Canadian presence.' },
     { name: 'Capco',                          size: 'mid',      tier: 'alt',    city: 'Toronto',                 tags: ['financial', 'tech'], note: 'Financial services-focused consulting on tech, operations, and regulatory transformation. Deep FS niche.' },
+    { name: 'BDO',                            size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: ['financial'],         note: 'Mid-market advisory firm with a growing deals and restructuring practice. Strong access for HBAs outside Big 4.' },
   ],
   ops: [
-    { name: 'PwC Advisory',         size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: [],             note: 'Strong Canadian operations and business transformation practice. Excellent HBA recruiting pipeline.' },
-    { name: 'EY',                   size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: [],             note: 'EY\'s consulting practice focuses on business transformation, supply chain, and technology-led ops.' },
-    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: [],             note: 'Broad operations consulting practice — workforce, finance transformation, and supply chain.' },
+    { name: 'PwC Advisory',         size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Strong Canadian operations and business transformation practice. Excellent HBA recruiting pipeline.' },
+    { name: 'EY',                   size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'EY\'s consulting practice focuses on business transformation, supply chain, and technology-led ops.' },
+    { name: 'Deloitte',             size: 'large',    tier: 'core',   city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Broad operations consulting practice — workforce, finance transformation, and supply chain.' },
     { name: 'Accenture',            size: 'large',    tier: 'strong', city: 'Toronto · Across Canada', tags: ['tech'],       note: 'Accenture Operations is one of the largest transformation practices globally, with strong Canadian projects.' },
     { name: 'IBM Consulting',       size: 'large',    tier: 'strong', city: 'Toronto · Montreal',      tags: ['tech'],       note: 'Process automation, enterprise resource planning, and AI-driven operations transformation.' },
     { name: 'isaac',                size: 'boutique', tier: 'alt',    city: 'Toronto',                 tags: ['industrial'], note: 'Boutique operations consulting firm. Lean team, fast ownership, and a strong operations-first culture.' },
+    { name: 'Carpedia',             size: 'boutique', tier: 'strong', city: 'Toronto',                 tags: ['industrial'], note: 'Specialist in operational performance improvement. Known for implementation-heavy engagements and measurable results.' },
   ],
   niche: [
     { name: 'ZS Associates',                  size: 'mid',      tier: 'core',   city: 'Toronto', tags: ['health'],              note: 'Global leader in life sciences consulting — commercial, pricing, and go-to-market for pharma and biotech.' },
@@ -204,15 +206,17 @@ const FIRMS = {
     { name: 'Bond Brand Loyalty',             size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['consumer'],            note: 'Loyalty program design, CX strategy, and brand engagement consulting. Consumer-facing strategy focus.' },
     { name: 'Level5 Strategy',                size: 'boutique', tier: 'alt',    city: 'Toronto', tags: ['consumer'],            note: 'Boutique focused on retail and consumer strategy. Strong Canadian market knowledge.' },
     { name: 'Wasserman',                      size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'sports'],  note: 'Sports marketing and talent management firm. Niche but powerful for sports/entertainment strategy roles.' },
-    { name: 'Simon-Kucher',                   size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'financial'], note: 'Pricing and growth strategy specialist. Deep expertise in monetization across industries.' },
+    { name: 'Simon-Kucher',                   size: 'mid',      tier: 'alt',    city: 'Toronto', tags: ['consumer', 'financial'],  note: 'Pricing and growth strategy specialist. Deep expertise in monetization across industries.' },
+    { name: 'Synpulse',                       size: 'boutique', tier: 'strong', city: 'Toronto', tags: ['financial', 'tech'],       note: 'Boutique management consulting firm specializing in banking, insurance, and wealth management. Strong tech-enabled transformation practice.' },
   ],
 };
 
 const INTERNAL_FIRMS = [
-  { name: 'Capital One',  note: 'Robust in-house strategy and analytics teams across cards, auto, and enterprise. Active HBA recruiter.' },
-  { name: 'Mastercard',   note: 'Mastercard Advisors and internal strategy teams. Data-driven, global exposure from a Toronto base.' },
-  { name: 'Scotiabank',   note: 'Corporate Strategy and Business Development teams. Strong pipeline for HBAs interested in banking strategy.' },
-  { name: 'MLSE',         note: 'Strategy, analytics, and business operations at Canada\'s largest sports and entertainment company.' },
+  { name: 'Capital One',                note: 'Robust in-house strategy and analytics teams across cards, auto, and enterprise. Active HBA recruiter.' },
+  { name: 'Mastercard',                 note: 'Mastercard Advisors and internal strategy teams. Data-driven, global exposure from a Toronto base.' },
+  { name: 'Scotiabank',                 note: 'Corporate Strategy and Business Development teams. Strong pipeline for HBAs interested in banking strategy.' },
+  { name: 'MLSE',                       note: 'Strategy, analytics, and business operations at Canada\'s largest sports and entertainment company.' },
+  { name: 'Birch Hill Equity Partners', note: 'Mid-market Canadian PE firm. In-house strategy and technology roles sit at the intersection of deal execution and portfolio value creation.' },
 ];
 
 const FIRM_LOGO_MAP = {
@@ -225,7 +229,7 @@ const FIRM_LOGO_MAP = {
   'Roland Berger': 'roland-berger.png',
   'EY-Parthenon': 'contrast-ernst-young-management-consulting.png',
   'Simon-Kucher': 'simon.png',
-  'PMP Strategy': '',
+  'PMP Strategy': 'pmp-strategy.png',
   'Accenture': 'accenture.png',
   'IBM Consulting': 'ibm.png',
   'Deloitte': 'deloitte.png',
@@ -239,7 +243,7 @@ const FIRM_LOGO_MAP = {
   'Capco': 'capco.png',
   'PwC Advisory': 'pwc.png',
   'EY': 'ey.png',
-  'isaac': '',
+  'isaac': 'issac operations.webp',
   'ZS Associates': 'zs.png',
   'Coactuate': 'coactuate.png',
   'Invictus Analytics + Strategy': 'invictus-analytics.png',
@@ -249,10 +253,14 @@ const FIRM_LOGO_MAP = {
   'Bond Brand Loyalty': 'bond-brand-loyalty.png',
   'Level5 Strategy': 'level5-strategy.png',
   'Wasserman': 'wasserman.png',
-  'Capital One': '',
+  'Capital One': 'capital-one.png',
   'Mastercard': 'mastercard.png',
   'Scotiabank': 'scotiabank.png',
-  'MLSE': '',
+  'MLSE': 'mlse.png',
+  'Birch Hill Equity Partners': 'birch-hill-equity-partners.png',
+  'BDO': 'bdo-global.png',
+  'Carpedia': 'carpedia-international.png',
+  'Synpulse': 'synpulse.png',
 };
 
 const FIRM_URL_MAP = {
@@ -293,6 +301,10 @@ const FIRM_URL_MAP = {
   'Mastercard':                  'https://www.mastercard.ca',
   'Scotiabank':                  'https://www.scotiabank.com',
   'MLSE':                        'https://www.mlse.com',
+  'Birch Hill Equity Partners':  'https://www.birchhillequity.com',
+  'BDO':                         'https://www.bdo.ca',
+  'Carpedia':                    'https://www.carpedia.com',
+  'Synpulse':                    'https://www.synpulse.com',
 };
 
 const LOGO_FILES = [
@@ -331,6 +343,11 @@ const LOGO_FILES = [
   'synpulse.png',
   'wasserman.png',
   'zs.png',
+  'bond-brand-loyalty.png',
+  'pmp-strategy.png',
+  'capital-one.png',
+  'mlse.png',
+  'issac operations.webp',
 ];
 
 function getFirmLogo(name) {
