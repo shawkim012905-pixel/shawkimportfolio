@@ -419,7 +419,10 @@ const QUESTIONS = [
       { emoji: '💊', main: 'Healthcare, pharma, or life sciences',          sub: 'Drug development, hospital systems, biotech',    scores: { niche: 3 } },
       { emoji: '🏦', main: 'Financial services, banking, or PE/investment', sub: 'Capital markets, insurance, wealth, private equity', scores: { deal: 2, niche: 1 } },
       { emoji: '📱', main: 'Technology, media, or telecommunications',      sub: 'Digital platforms, AI, consumer tech, telecoms',  scores: { digital: 3 } },
-      { emoji: '🏭', main: 'Industrials, retail, energy, or consumer goods', sub: 'Broad-based corporate sectors',                  scores: { strategist: 2, ops: 1 } },
+      { emoji: '✈️', main: 'Airlines & aviation',                            sub: 'Network strategy, ops, fleet, route economics',  scores: { ops: 2, strategist: 1 } },
+      { emoji: '🏭', main: 'Industrials & manufacturing',                    sub: 'Supply chain, engineering, heavy industry',       scores: { ops: 3 } },
+      { emoji: '🛒', main: 'Consumer goods & retail',                        sub: 'Brands, CPG, e-commerce, customer strategy',      scores: { strategist: 2, ops: 1 } },
+      { emoji: '⚡', main: 'Energy & resources',                             sub: 'Oil & gas, renewables, utilities, mining',        scores: { ops: 2, niche: 1 } },
     ],
   },
   {
