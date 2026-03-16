@@ -416,12 +416,12 @@ body {
 }
 .r-section-title {
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: var(--subtle);
+  color: var(--crimson);
 }
-.r-section-rule { flex: 1; height: 1px; background: var(--border); }
+.r-section-rule { flex: 1; height: 1px; background: var(--crimson); opacity: 0.2; }
 
 /* White surface card */
 .surface {
