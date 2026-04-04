@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "Custom New Tab - Daily Love",
+  "version": "1.0",
+  "description": "A custom new tab page with daily photos, compliments, and coupons for your special person.",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "icons": {
+    "128": "icon128.png"
+  }
+}
