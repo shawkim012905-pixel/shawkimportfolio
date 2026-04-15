@@ -1,18 +1,18 @@
 /* ══════════════════════════════════════════════════════════
-   ICC CONSULTPATH
-   Ivey Consulting Club — Official Brand
-   Crimson #7B1818 · Black #111111 · White #FFFFFF
+   IHSC HEALTHPATH
+   Ivey Health Sector Club — Official Brand
+   Teal #0D9488 · Black #111111 · White #FFFFFF
    ══════════════════════════════════════════════════════════ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ── ICC Core ── */
-  --crimson:      #7B1818;
-  --crimson-dark: #5C1212;
-  --crimson-mid:  #962020;
-  --crimson-pale: #FDF2F2;
-  --crimson-tint: rgba(123,24,24,0.06);
+  /* ── IHSC Core ── */
+  --crimson:      #0D9488;
+  --crimson-dark: #0F766E;
+  --crimson-mid:  #0D9488;
+  --crimson-pale: #F0FDFA;
+  --crimson-tint: rgba(13,148,136,0.06);
 
   /* ── Neutral palette ── */
   --ink:          #111827;
@@ -24,13 +24,14 @@
   --bg:           #F9F8F6;
   --white:        #FFFFFF;
 
-  /* ── Archetype accent colors ── */
-  --c-strategist: #7B1818;
-  --c-digital:    #1D4ED8;
-  --c-deal:       #92400E;
-  --c-ops:        #065F46;
-  --c-niche:      #6D28D9;
-  --c-internal:   #374151;
+  /* ── Track accent colors ── */
+  --c-consulting:  #0D9488;
+  --c-corporate:   #1E40AF;
+  --c-banking:     #92400E;
+  --c-pe:          #065F46;
+  --c-healthtech:  #4338CA;
+  --c-policy:      #1E3A5F;
+  --c-commercial:  #9D174D;
 
   /* ── Layout ── */
   --radius:    12px;
@@ -393,12 +394,14 @@ body {
   background: rgba(255,255,255,0.3);
 }
 
-/* Archetype hero skins */
-.hero-strategist { background: linear-gradient(135deg,#fdf2f2,#f9e0e0); border-color: rgba(123,24,24,0.2); color:#5C1212; }
-.hero-digital    { background: linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color: rgba(29,78,216,0.2);  color:#1E3A8A; }
-.hero-deal       { background: linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color: rgba(146,64,14,0.2);  color:#78350F; }
-.hero-ops        { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); border-color: rgba(6,95,70,0.2);    color:#064E3B; }
-.hero-niche      { background: linear-gradient(135deg,#F5F3FF,#EDE9FE); border-color: rgba(109,40,217,0.2); color:#4C1D95; }
+/* Track hero skins */
+.hero-consulting  { background: linear-gradient(135deg,#F0FDFA,#CCFBF1); border-color: rgba(13,148,136,0.2);  color:#0F766E; }
+.hero-corporate   { background: linear-gradient(135deg,#EFF6FF,#DBEAFE); border-color: rgba(30,64,175,0.2);   color:#1E3A8A; }
+.hero-banking     { background: linear-gradient(135deg,#FFFBEB,#FEF3C7); border-color: rgba(146,64,14,0.2);   color:#78350F; }
+.hero-pe          { background: linear-gradient(135deg,#ECFDF5,#D1FAE5); border-color: rgba(6,95,70,0.2);     color:#064E3B; }
+.hero-healthtech  { background: linear-gradient(135deg,#EEF2FF,#E0E7FF); border-color: rgba(67,56,202,0.2);   color:#312E81; }
+.hero-policy      { background: linear-gradient(135deg,#F1F5F9,#E2E8F0); border-color: rgba(30,58,95,0.2);    color:#1E3A5F; }
+.hero-commercial  { background: linear-gradient(135deg,#FFF1F2,#FFE4E6); border-color: rgba(157,23,77,0.2);   color:#881337; }
 
 /* Section wrapper */
 .r-section { animation: slideIn 0.35s ease both; }
@@ -436,11 +439,13 @@ body {
 .score-track { height: 6px; background: var(--bg); border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
 .score-fill  { height: 100%; border-radius: 999px; width: 0%; transition: width 1s cubic-bezier(0.4,0,0.2,1) 0.2s; }
 
-.fill-strategist { background: linear-gradient(90deg, var(--c-strategist), #c0392b); }
-.fill-digital    { background: linear-gradient(90deg, var(--c-digital), #3B82F6); }
-.fill-deal       { background: linear-gradient(90deg, var(--c-deal), #D97706); }
-.fill-ops        { background: linear-gradient(90deg, var(--c-ops), #10B981); }
-.fill-niche      { background: linear-gradient(90deg, var(--c-niche), #8B5CF6); }
+.fill-consulting  { background: linear-gradient(90deg, var(--c-consulting),  #14B8A6); }
+.fill-corporate   { background: linear-gradient(90deg, var(--c-corporate),   #3B82F6); }
+.fill-banking     { background: linear-gradient(90deg, var(--c-banking),     #D97706); }
+.fill-pe          { background: linear-gradient(90deg, var(--c-pe),          #10B981); }
+.fill-healthtech  { background: linear-gradient(90deg, var(--c-healthtech),  #6366F1); }
+.fill-policy      { background: linear-gradient(90deg, var(--c-policy),      #475569); }
+.fill-commercial  { background: linear-gradient(90deg, var(--c-commercial),  #EC4899); }
 
 /* Card grids */
 .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
@@ -527,6 +532,8 @@ body {
 .tool-card:hover { border-color: var(--crimson); box-shadow: 0 4px 16px rgba(123,24,24,0.08); }
 .tool-card img { max-width: 140px; max-height: 40px; object-fit: contain; }
 .tool-name { font-size: 0.8rem; font-weight: 600; color: var(--ink); text-align: center; }
+.tool-desc { font-size: 0.72rem; color: var(--muted); text-align: center; line-height: 1.45; margin-top: 2px; }
+.tool-icon { font-size: 2rem; }
 @media (max-width: 640px) { .tools-grid { grid-template-columns: 1fr; } }
 .firm-size-tag {
   display: inline-block;
